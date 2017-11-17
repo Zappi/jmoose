@@ -1,15 +1,13 @@
 
 import Data.Database;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.IOException;
+import java.sql.SQLException;
+
 
 public class Main {
 
-    public static void main(String[] args) {
-        try {
-            Database.connect();
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex.getException());
-        }
+    public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException {
+        Database db = new Database("jdbc:sqlite:main.db");
+        db.connect();
     }
 }

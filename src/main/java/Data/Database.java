@@ -1,38 +1,44 @@
 package Data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 
 public class Database {
-    
-    private final String SCHEMA_PATH = "/db/schema.sql";
-    
-    public Database() {
-        
+
+
+    private final String driver = "org.sqlite.JDBC";
+    private String databaseAddress;
+
+ 
+    public Database(String databaseAddress) throws ClassNotFoundException {
+        this.databaseAddress = databaseAddress;
     }
-    
-    public static void connect() throws ClassNotFoundException  {
-        Connection conn = null;
-        try {
-            String driver = "org.sqlite.JDBC";
-            Class.forName(driver);
-            String dbName = "main.db";
-            String dbUrl = "jdbc:sqlite:" +dbName;
-            conn = DriverManager.getConnection(dbUrl);
 
-            System.out.println("Connection to SQLite has been established.");
+    public Connection getConnection() throws SQLException, ClassNotFoundException {
+        Class.forName(this.driver);
+        return DriverManager.getConnection(databaseAddress);
+    }
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+    public void connect() {
+        try (Connection connection = getConnection()) {
+            Statement st = connection.createStatement();
+
+            //You may remove these
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            
+            String query = "SELECT * FROM Item";
+            
+            pstmt = connection.prepareStatement(query);
+            rs = pstmt.executeQuery();
+            
+            System.out.println(rs.getString("title"));
+            
+
+        } catch (Throwable t) {
+            System.out.println("Error >> " + t.getMessage());
         }
     }
+
 }
