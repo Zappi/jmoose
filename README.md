@@ -1,4 +1,8 @@
 # jmoose
+
+
+[![Build Status](https://travis-ci.org/Zappi/jmoose.svg?branch=master)](https://travis-ci.org/Zappi/jmoose)
+
 Ohtun miniprojekti, syksy 2017
 
 Software engineering miniproject, fall 2017
