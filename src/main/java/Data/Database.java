@@ -11,11 +11,11 @@ public class Database {
     private String databaseAddress;
 
  
-    public Database(String databaseAddress) throws ClassNotFoundException {
+    public Database(String databaseAddress) {
         this.databaseAddress = databaseAddress;
     }
 
-    public Connection getConnection() throws SQLException, ClassNotFoundException {
+    public Connection getConnection() {
         Class.forName(this.driver);
         return DriverManager.getConnection(databaseAddress);
     }
@@ -34,7 +34,7 @@ public class Database {
             rs = pstmt.executeQuery();
             
             System.out.println(rs.getString("title"));
-            
+   
 
         } catch (Throwable t) {
             System.out.println("Error >> " + t.getMessage());
