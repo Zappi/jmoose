@@ -1,3 +1,5 @@
+package main;
+
 
 import Data.Database;
 import java.sql.SQLException;
@@ -7,12 +9,14 @@ public class Application {
 
     private Database db;
     public Scanner scanner;
-
+    
     public Application(Database db) {
         this.db = db;
         this.scanner = new Scanner(System.in);
     }
 
+    
+    //Not tested yet
     public void run() throws SQLException, ClassNotFoundException {
         System.out.println("Hello, would you like to save an item or browse your collection?");
         while (true) {
@@ -32,14 +36,14 @@ public class Application {
             }
         }
     }
-
+    //Tested manually
     private static void browseItems(Database db) {
         System.out.println("");
         db.browse();
         System.out.println("");
     }
 
-    private static void saveItem(Database db, Scanner scanner) throws SQLException, ClassNotFoundException {
+    public void saveItem(Database db, Scanner scanner) throws SQLException, ClassNotFoundException {
         System.out.println("Input the information of the item");
         System.out.println("Title: ");
         String title = scanner.nextLine();

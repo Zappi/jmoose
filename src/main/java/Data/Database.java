@@ -16,6 +16,7 @@ public class Database {
         return DriverManager.getConnection(databaseAddress);
     }
 
+    //Tested manually
     public void browse() {
         try (Connection connection = getConnection()) {
             Statement st = connection.createStatement();
@@ -51,6 +52,22 @@ public class Database {
             ps.execute();
         } catch (Throwable t) {
             System.out.println("Error >> " + t.getMessage());
+        }
+    }
+
+    public String getItem(String title) throws SQLException, ClassNotFoundException {
+        try (Connection connection = getConnection()) {
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE title='" + title + "'");
+            ResultSet rs = ps.executeQuery();
+            return rs.getString("title");
+        }
+    }
+
+    public void deleteByTitle(String title) throws SQLException, ClassNotFoundException {
+        try (Connection connection = getConnection()) {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM Item WHERE title='" + title + "'");
+            ps.executeUpdate();
+            connection.close();
         }
     }
 }
