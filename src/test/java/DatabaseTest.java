@@ -11,7 +11,7 @@ public class DatabaseTest {
     
     @Before
     public void setUp() {
-        db = new Database("jdbc:sqlite:test.db");
+        db = new Database("jdbc:sqlite::resource:test.db");
     }
     
     @Test
