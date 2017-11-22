@@ -19,6 +19,6 @@ public class DatabaseTest {
         db.addItem("Book", "author", "", "", "", "");
         String title = db.getItem("Book");
         assertEquals(title, "Book");
-//        db.deleteByTitle("Book");
+        db.deleteByTitle("Book");
     }
 }
