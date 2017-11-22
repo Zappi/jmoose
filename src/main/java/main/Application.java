@@ -1,22 +1,30 @@
 package main;
 
 
+import Dao.ItemDao;
 import Data.Database;
+import Item.Item;
+
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
+
 
 public class Application {
 
     private Database db;
     public Scanner scanner;
-    
+    public ItemDao itemDao;
+
+
     public Application(Database db) {
         this.db = db;
         this.scanner = new Scanner(System.in);
+        this.itemDao = new ItemDao(db);
     }
 
-    
-    //Not tested yet
+
+    //UI not tested/tested manually
     public void run() throws SQLException, ClassNotFoundException {
         System.out.println("Hello, would you like to save an item or browse your collection?");
         while (true) {
@@ -36,11 +44,13 @@ public class Application {
             }
         }
     }
-    //Tested manually
-    private static void browseItems(Database db) {
-        System.out.println("");
-        db.browse();
-        System.out.println("");
+
+    //UI not tested/tested manually
+    private void browseItems(Database db) throws SQLException, ClassNotFoundException {
+        List<Item> allItems = itemDao.findAll();
+        for (Item item : allItems) {
+            System.out.println(item);
+        }
     }
 
     public void saveItem(Database db, Scanner scanner) throws SQLException, ClassNotFoundException {
@@ -64,9 +74,8 @@ public class Application {
         System.out.println("Type: ");
         String type = scanner.nextLine();
         System.out.println("Description: ");
-        String comment = scanner.nextLine();
-        if (db.addItem(title, author, url, isbn, type, comment)) {
-            System.out.println("\nItem added successfully!\n----");
-        }
+        String description = scanner.nextLine();
+        itemDao.save(title, author, url, isbn, type, description);
+        System.out.println("Item saved succesfully!");
     }
 }
