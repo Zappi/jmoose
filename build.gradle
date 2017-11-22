@@ -1,6 +1,10 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '2.0.1'
+}
+
 apply plugin: 'java'
 apply plugin: 'application'
-apply plugin: "jacoco" 
+apply plugin: "jacoco"
 
 sourceCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
@@ -11,7 +15,7 @@ if (!hasProperty('mainClass')) {
 
 repositories {
     mavenCentral()
-    
+
 }
 
 dependencies {
@@ -28,10 +32,17 @@ run{
 test{
     finalizedBy jacocoTestReport
 }
+
 jacocoTestReport {
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: 'main/**')
         })
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'main.Main'
     }
 }

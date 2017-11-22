@@ -65,6 +65,8 @@ public class Application {
         String type = scanner.nextLine();
         System.out.println("Description: ");
         String comment = scanner.nextLine();
-        db.addItem(title, author, url, isbn, type, comment);
+        if (db.addItem(title, author, url, isbn, type, comment)) {
+            System.out.println("\nItem added successfully!\n----");
+        }
     }
 }

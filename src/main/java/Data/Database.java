@@ -34,12 +34,13 @@ public class Database {
                 System.out.println(id + ": " + title + ", " + author + ", " + type);
             }
 
+
         } catch (Throwable t) {
             System.out.println("Error >> " + t.getMessage());
         }
     }
 
-    public void addItem(String title, String author, String url, String isbn, String type, String comment) throws SQLException, ClassNotFoundException {
+    public boolean addItem(String title, String author, String url, String isbn, String type, String comment) throws SQLException, ClassNotFoundException {
         try (Connection connection = getConnection()) {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO item (title, author, url, isbn, type, description, is_read) VALUES (?, ?, ?, ?, ? ,?, ?)");
             ps.setString(1, title);
@@ -52,7 +53,10 @@ public class Database {
             ps.execute();
         } catch (Throwable t) {
             System.out.println("Error >> " + t.getMessage());
+            System.out.println("Item not added");
+            return false;
         }
+        return true;
     }
 
     public String getItem(String title) throws SQLException, ClassNotFoundException {

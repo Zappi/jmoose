@@ -1,1 +1,4 @@
 .nb-gradle
+build/
+/*.tmp
+.idea/
