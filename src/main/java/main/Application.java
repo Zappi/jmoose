@@ -76,6 +76,6 @@ public class Application {
         System.out.println("Description: ");
         String description = scanner.nextLine();
         itemDao.save(title, author, url, isbn, type, description);
-        System.out.println("Item saved succesfully!");
+        System.out.println("Item saved successfully!");
     }
 }
