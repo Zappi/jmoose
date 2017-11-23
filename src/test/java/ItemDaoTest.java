@@ -33,8 +33,14 @@ public class ItemDaoTest {
     }
 
     @Test
-    public void findOneTest() throws SQLException, ClassNotFoundException {
-        Item found = itemDao.findOne("Da Vinci Code");
+    public void findOneByTitleTest() throws SQLException, ClassNotFoundException {
+        Item found = itemDao.findOneByTitle("Da Vinci Code");
+        assertEquals(found.getAuthor(), "Brown Dan");
+    }
+
+    @Test
+    public void findOneByAUthorTest() throws SQLException, ClassNotFoundException {
+        Item found = itemDao.findOneByAuthor("Brown Dan");
         assertEquals(found.getAuthor(), "Brown Dan");
     }
 }
