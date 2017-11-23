@@ -1,6 +1,7 @@
 package Dao;
 
 import Data.Database;
+
 import Interface.Dao;
 import Item.Item;
 
@@ -21,13 +22,40 @@ public class ItemDao implements Dao<Item, String> {
 
 
     @Override
-    public Item findOne(String title) throws SQLException, ClassNotFoundException {
+    public Item findOneByTitle(String title) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE title='" + title +"'");
+
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item Where title ='" + title + "'");
+
         ResultSet rs = ps.executeQuery();
+
 
         title = rs.getString("title");
         String author = rs.getString("author");
+        String url = rs.getString("url");
+        String isbn = rs.getString("isbn");
+        String type = rs.getString("type");
+        String description = rs.getString("description");
+        boolean is_read = rs.getBoolean("is_read");
+
+        rs.close();
+        ps.close();
+        connection.close();
+
+        return new Item(title, author, url, isbn, type, description, is_read);
+    }
+
+    @Override
+    public Item findOneByAuthor(String author) throws SQLException, ClassNotFoundException {
+        Connection connection = database.getConnection();
+
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item Where author ='" + author + "'");
+
+        ResultSet rs = ps.executeQuery();
+
+
+        String title = rs.getString("title");
+        author = rs.getString("author");
         String url = rs.getString("url");
         String isbn = rs.getString("isbn");
         String type = rs.getString("type");

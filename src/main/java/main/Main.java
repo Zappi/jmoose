@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException {
         //jdbc:sqlite::resource:main.db points to the src/main/resources/ -folder
         Database db = new Database("jdbc:sqlite::resource:main.db");
-        Application app = new Application(db);
+        Application app = new Application(new ItemController(db));
         app.run();
     }
 }
