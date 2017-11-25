@@ -1,23 +1,20 @@
 package main;
 
 
-import Dao.ItemDao;
-import Data.Database;
-import Item.Item;
+import Item.ItemHandler;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 
 public class Application {
 
-    private ItemController itemController;
+    private ItemHandler itemHandler;
     public Scanner scanner;
 
-    public Application(ItemController itemController) {
+    public Application(ItemHandler itemHandler) {
         this.scanner = new Scanner(System.in);
-        this.itemController = itemController;
+        this.itemHandler = itemHandler;
     }
 
 
@@ -31,11 +28,11 @@ public class Application {
             request = request.toLowerCase();
             if (request.equals("save")) {
                 System.out.println("");
-                itemController.saveItem(scanner);
+                itemHandler.saveItem(scanner);
             } else if (request.equals("browse")) {
-                itemController.browseItems(scanner);
+                itemHandler.getItems(scanner);
             } else if(request.equals("find one")) {
-                itemController.findOne(scanner);
+                itemHandler.findOne(scanner);
             }   else if (request.equals("quit")) {
                 System.out.println("Good bye!");
                 break;

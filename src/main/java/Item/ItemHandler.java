@@ -1,38 +1,29 @@
-package main;
+package Item;
 
 import Dao.ItemDao;
 import Data.Database;
-import Item.Item;
-import org.ibex.nestedvm.Runtime;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.*;
+
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
-public class ItemController {
+public class ItemHandler {
 
-    public ItemDao itemDao;
-    private Database db;
+    private ItemController itemController;
 
-    public ItemController(Database db) {
-        this.itemDao = new ItemDao(db);
+    public ItemHandler(Database db, ItemController itemController) {
+        this.itemController = itemController;
     }
 
-
-    public void browseItems(Scanner scanner) throws SQLException, ClassNotFoundException {
-        List<Item> allItems = itemDao.findAll();
-        HashMap<Integer, Item> listedItems = new HashMap<>();
+    public void getItems(Scanner scanner) throws SQLException, ClassNotFoundException {
+        HashMap<Integer, Item> itemMap = itemController.browseItems();
         int i = 1;
-        for (Item item : allItems) {
-            listedItems.put(i, item);
+        for (Item item : itemMap.values()) {
             System.out.println(i + " " + item);
             i++;
         }
-        selectSingleItemFromTheList(scanner, listedItems);
+        selectSingleItemFromTheList(scanner, itemMap);
     }
 
     private void selectSingleItemFromTheList(Scanner scanner, HashMap listedItems) throws SQLException, ClassNotFoundException {
@@ -47,42 +38,17 @@ public class ItemController {
         int index = Integer.parseInt(scanner.nextLine());
         Item wantedItem = (Item) listedItems.get(index);
 
-        Item foundItem = itemDao.findOneByTitle(wantedItem.getTitle());
+        Item foundItem = itemController.getOneItemByTtile(wantedItem.getTitle());
         System.out.println(foundItem);
         
         if(foundItem.getUrl() != null) {
-            System.out.println("Would you like to open item's link in your browser?");
+            System.out.println("Would you like to open item's link in your browser? (Yes or no)");
             if(scanner.nextLine().toLowerCase().equals("yes")) {
-                openItemLink(foundItem.getUrl());
+                itemController.openItemLink(foundItem.getUrl());
             }
         }
 
     }
-
-    private void openItemLink(String url) {
-        String fixedURL = handleUrl(url);
-        Desktop desktop = java.awt.Desktop.getDesktop();
-        try {
-            URI itemURL = new URL(fixedURL).toURI();
-            java.awt.Desktop.getDesktop().browse(itemURL);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String handleUrl(String url) {
-        if(!url.startsWith("http://")) {
-           url = "http://"+url;
-        }
-        return url;
-    }
-
-
-    //FIX THIS!!
-    public void findOne(Scanner scanner) throws SQLException, ClassNotFoundException {
-        System.out.println("Test");
-    }
-
 
     public void saveItem(Scanner scanner) throws SQLException, ClassNotFoundException {
         System.out.println("Input the information of the item");
@@ -124,7 +90,15 @@ public class ItemController {
 
         System.out.println("Description: ");
         String description = scanner.nextLine();
-        itemDao.save(title, author, url, isbn, type, description);
+        itemController.save(title, author, url, isbn, type, description);
         System.out.println("Item saved successfully!");
     }
+
+
+
+    //FIX THIS!!
+    public void findOne(Scanner scanner) throws SQLException, ClassNotFoundException {
+        System.out.println("Test");
+    }
+
 }
