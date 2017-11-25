@@ -3,7 +3,11 @@ package main;
 import Dao.ItemDao;
 import Data.Database;
 import Item.Item;
+import org.ibex.nestedvm.Runtime;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.*;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +47,34 @@ public class ItemController {
         int index = Integer.parseInt(scanner.nextLine());
         Item wantedItem = (Item) listedItems.get(index);
 
-        System.out.println(itemDao.findOneByTitle(wantedItem.getTitle()));
+        Item foundItem = itemDao.findOneByTitle(wantedItem.getTitle());
+        System.out.println(foundItem);
+        
+        if(foundItem.getUrl() != null) {
+            System.out.println("Would you like to open item's link in your browser?");
+            if(scanner.nextLine().toLowerCase().equals("yes")) {
+                openItemLink(foundItem.getUrl());
+            }
+        }
 
+    }
+
+    private void openItemLink(String url) {
+        String fixedURL = handleUrl(url);
+        Desktop desktop = java.awt.Desktop.getDesktop();
+        try {
+            URI itemURL = new URL(fixedURL).toURI();
+            java.awt.Desktop.getDesktop().browse(itemURL);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String handleUrl(String url) {
+        if(!url.startsWith("http://")) {
+           url = "http://"+url;
+        }
+        return url;
     }
 
 
