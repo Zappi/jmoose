@@ -1,9 +1,6 @@
 package Interface;
 
 import java.sql.SQLException;
-
-import Item.Item;
-
 import java.util.List;
 
 public interface Dao<Item, String> {

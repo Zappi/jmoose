@@ -1,8 +1,6 @@
 package Item;
 
-import Dao.ItemDao;
 import Data.Database;
-
 
 import java.sql.SQLException;
 import java.util.HashMap;

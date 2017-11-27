@@ -1,11 +1,14 @@
 import Dao.ItemDao;
 import Data.Database;
+import Item.Item;
 import org.junit.Before;
 import org.junit.Test;
-import Item.Item;
+
 import java.sql.SQLException;
 import java.util.List;
-import static junit.framework.Assert.*;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 public class ItemDaoTest {
 

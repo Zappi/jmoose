@@ -1,25 +1,30 @@
 import Dao.ItemDao;
 import Data.Database;
+import Item.Item;
 import Item.ItemController;
 import org.junit.Before;
 import org.junit.Test;
-import Item.Item;
+import static org.mockito.Mockito.*;
 
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ItemControllerTest {
 
-    private ItemController itemController;
+    public ItemController itemController;
     private Database db;
-    private Item item;
+    private ItemDao itemDao;
+    private Item testItem;
 
     @Before
     public void setUp() {
+        testItem = new Item("title", "author", "URL", "isbn", "type", "description", false);
         db = new Database("jdbc:sqlite::resource:test.db");
         this.itemController = new ItemController(new ItemDao(db));
+        this.itemDao = new ItemDao(db);
     }
 
 
@@ -34,5 +39,11 @@ public class ItemControllerTest {
         String url = "www.google.com";
         String modifiedURL = itemController.handleUrl(url);
         assertEquals("http://www.google.com",modifiedURL);
+    }
+
+    @Test
+    public void urlHasCorrectName() {
+        String url = itemController.handleUrl("http://www.google.com");
+        assertEquals("http://www.google.com", url);
     }
 }
