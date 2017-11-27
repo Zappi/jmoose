@@ -36,7 +36,7 @@ public class ItemHandler {
         int index = Integer.parseInt(scanner.nextLine());
         Item wantedItem = (Item) listedItems.get(index);
 
-        Item foundItem = itemController.getOneItemByTtile(wantedItem.getTitle());
+        Item foundItem = itemController.getOneItemByTitle(wantedItem.getTitle());
         System.out.println(foundItem);
         
         if(foundItem.getUrl() != null) {
