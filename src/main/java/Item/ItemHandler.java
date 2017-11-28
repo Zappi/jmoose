@@ -25,24 +25,29 @@ public class ItemHandler {
     }
 
     private void selectSingleItemFromTheList(Scanner scanner, HashMap listedItems) throws SQLException, ClassNotFoundException {
-        System.out.println("Would you like to see the single item info? (Yes or no)");
-        String answer = scanner.nextLine().toLowerCase();
+        System.out.println("Would you like to see the single item info? [Yes or no]");
+        boolean answer = false;
+        while (!answer) {
+            String answerString = scanner.nextLine().toLowerCase();
 
-        if(answer.equals("no")) {
-            return;
+            if(answerString.equals("no")) {
+                return;
+            } else if (answerString.equals("yes")) {
+                answer = true;
+            } else {
+                System.out.println("Command not recognized try [Yes or no]");
+            }
         }
 
         System.out.println("Which number?");
         int index = Integer.parseInt(scanner.nextLine());
         Item wantedItem = (Item) listedItems.get(index);
-
-        Item foundItem = itemController.getOneItemByTitle(wantedItem.getTitle());
-        System.out.println(foundItem);
+        System.out.println(wantedItem);
         
-        if(foundItem.getUrl() != null) {
-            System.out.println("Would you like to open item's link in your browser? (Yes or no)");
+        if(!wantedItem.getUrl().isEmpty()) {
+            System.out.println("Would you like to open item's link in your browser? [Yes or no]");
             if(scanner.nextLine().toLowerCase().equals("yes")) {
-                itemController.openItemLink(foundItem.getUrl());
+                itemController.openItemLink(wantedItem.getUrl());
             }
         }
 
