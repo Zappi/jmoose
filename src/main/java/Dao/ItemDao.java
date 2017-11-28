@@ -19,8 +19,12 @@ public class ItemDao implements Dao<Item, String> {
         this.database = db;
     }
 
-
     @Override
+    public Item findOne(String key) throws SQLException, ClassNotFoundException {
+        // Tähän toteutetaan yhden Itemin haku Id:n perusteella
+        return null;
+    }
+
     public Item findOneByTitle(String title) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
@@ -46,7 +50,6 @@ public class ItemDao implements Dao<Item, String> {
         return new Item(title, author, url, isbn, type, description, is_read);
     }
 
-    @Override
     public Item findOneByAuthor(String author) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
@@ -69,6 +72,7 @@ public class ItemDao implements Dao<Item, String> {
 
         return new Item(title, author, url, isbn, type, description, is_read);
     }
+
 
     @Override
     public List<Item> findAll() throws SQLException, ClassNotFoundException {
@@ -108,6 +112,11 @@ public class ItemDao implements Dao<Item, String> {
     }
 
     @Override
+    public boolean save(Item object) throws SQLException, ClassNotFoundException {
+        // Tähän toteutetaan uusi oikea tallennusmuoto tietokantaan
+        return false;
+    }
+
     public boolean save(String title, String author, String url, String isbn, String type, String description) throws ClassNotFoundException, SQLException {
         Connection connection = database.getConnection();
         PreparedStatement ps = connection.prepareStatement("INSERT INTO item (title, author, url, isbn, type, description, is_read) VALUES (?, ?, ?, ?, ? ,?, ?)");
