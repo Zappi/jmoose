@@ -20,18 +20,48 @@ public class CommentDao implements Dao<Comment, String>{
     @Override
     public List<Comment> findAll() throws SQLException, ClassNotFoundException {
         // Tähän toteutetaan kaikkien kommenttien listaus
+        // Tätähän ei oikeastaan tarvita, koska ei ole käyttötapausta, jossa listattaisiin kaikki kommentit
         return null;
     }
 
-    public List<Comment> findAllByItem(Item item) throws SQLException, ClassNotFoundException {
-        // Tähän toteutetaan yhteen itemiin liittyvien kommenttien listaus
-        return null;
+    //Palauttaa haetun Itemin kommentit listana String-olioita 
+    public List<String> findAllByItem(String key) throws SQLException, ClassNotFoundException {
+        Connection connection = database.getConnection();
+        
+        PreparedStatement ps = connection.preparedStatement("SELECT * FROM Comment WHERE item ='" + key + "'");
+
+        ResultSet rs = ps.executeQuery();
+
+        if (!rs.next()) {
+            return null;
+        }
+
+        List<String> comments = new List<>();
+
+        while (rs.next()) {
+            String comment = rs.getString("comment");
+            comments.add(comment);
+        }
+
+        rs.close();
+        ps.close();
+        connection.close();
+
+        return comments;
     }
 
-    @Override
-    public boolean save(Comment comment) throws SQLException, ClassNotFoundException {
-        // Tähän toteutetaan yhden kommentin tallennus tietokantaan
-        return false;
+    public boolean save(String comment, int itemId) throws SQLException, ClassNotFoundException {
+        Connection connection = database.getConnection();
+        PreparedStatement ps = connection.preparedStatement("INSERT INTO Comment (comment, id) VALUES (?, ?)");
+        
+        ps.setString(1, comment);
+        ps.setInt(2.itemId);
+
+        ps.execute();
+        ps.close();
+        connection.close();
+
+        return true;
     }
 
     @Override

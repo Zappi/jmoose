@@ -3,9 +3,9 @@ import Item.Item;
 
 public class Comment {
     public String comment;
-    public Item item;
+    public int itemId;
 
-    public Comment (String Comment, Item item){
+    public Comment (String comment, int itemId){
         this.comment = comment;
         this.item = item;
     }

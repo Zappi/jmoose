@@ -28,7 +28,7 @@ public class ItemDao implements Dao<Item, String> {
     public Item findOneByTitle(String title) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item Where title ='" + title + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE title ='" + title + "'");
 
         ResultSet rs = ps.executeQuery();
         if (!rs.next()) {
@@ -53,7 +53,7 @@ public class ItemDao implements Dao<Item, String> {
     public Item findOneByAuthor(String author) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item Where author ='" + author + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE author ='" + author + "'");
 
         ResultSet rs = ps.executeQuery();
 
@@ -111,11 +111,11 @@ public class ItemDao implements Dao<Item, String> {
         return true;
     }
 
-    @Override
-    public boolean save(Item object) throws SQLException, ClassNotFoundException {
-        // Tähän toteutetaan uusi oikea tallennusmuoto tietokantaan
-        return false;
-    }
+    //@Override
+    //public boolean save(Item object) throws SQLException, ClassNotFoundException {
+    //Tähän toteutetaan uusi oikea tallennusmuoto tietokantaan
+    //    return false;
+    //}
 
     public boolean save(String title, String author, String url, String isbn, String type, String description) throws ClassNotFoundException, SQLException {
         Connection connection = database.getConnection();
