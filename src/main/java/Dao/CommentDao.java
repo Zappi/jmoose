@@ -36,7 +36,7 @@ public class CommentDao implements Dao<Comment, String>{
     public List<String> findAllByItem(int key) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
         
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Comment WHERE item ='" + key + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Comment WHERE item = " + key);
 
         ResultSet rs = ps.executeQuery();
 
