@@ -39,6 +39,10 @@ jacocoTestReport {
             fileTree(dir: it, exclude: 'main/**')
         })
     }
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }
 
 jar {
