@@ -15,18 +15,20 @@ public class CommentDaoTest {
 
 	private Database db;
 	private CommentDao commentDao;
-	private Comment comment;	
+	private Comment comment;
+
 
 	@Before
 	public void setUp() {
 		Comment testComment = new Comment("comment", 1);
 		db = new Database("jdbc:sqlite::resource:test.db");
 		ItemDao itemDao = new ItemDao(db);
+		commentDao = new CommentDao(db);
 	}
 
 	 @Test
     public void findAllForItemTest() throws SQLException, ClassNotFoundException {
         List<String> comments = commentDao.findAllByItem(6);
-        assertEquals(comments.size(), 2);
+        assertEquals(1, comments.size());
     }
 }
