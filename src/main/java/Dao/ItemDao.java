@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ItemDao implements Dao<Item, String> {
 
     private Database database;
@@ -19,18 +20,23 @@ public class ItemDao implements Dao<Item, String> {
         this.database = db;
     }
 
-
     @Override
+    public Item findOne(String key) throws SQLException, ClassNotFoundException {
+        // Tähän toteutetaan yhden Itemin haku Id:n perusteella
+        return null;
+    }
+
     public Item findOneByTitle(String title) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item Where title ='" + title + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE title ='" + title + "'");
 
         ResultSet rs = ps.executeQuery();
         if (!rs.next()) {
             return null;
         }
 
+        int id = rs.getInt("id");
         title = rs.getString("title");
         String author = rs.getString("author");
         String url = rs.getString("url");
@@ -43,18 +49,17 @@ public class ItemDao implements Dao<Item, String> {
         ps.close();
         connection.close();
 
-        return new Item(title, author, url, isbn, type, description, is_read);
+        return new Item(id, title, author, url, isbn, type, description, is_read);
     }
 
-    @Override
     public Item findOneByAuthor(String author) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item Where author ='" + author + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE author ='" + author + "'");
 
         ResultSet rs = ps.executeQuery();
 
-
+        int id = rs.getInt("id");
         String title = rs.getString("title");
         author = rs.getString("author");
         String url = rs.getString("url");
@@ -67,8 +72,9 @@ public class ItemDao implements Dao<Item, String> {
         ps.close();
         connection.close();
 
-        return new Item(title, author, url, isbn, type, description, is_read);
+        return new Item(id, title, author, url, isbn, type, description, is_read);
     }
+
 
     @Override
     public List<Item> findAll() throws SQLException, ClassNotFoundException {
@@ -79,6 +85,7 @@ public class ItemDao implements Dao<Item, String> {
         List<Item> allItems = new ArrayList();
 
         while (rs.next()) {
+            int id = rs.getInt("id");
             String title = rs.getString("title");
             String author = rs.getString("author");
             String url = rs.getString("url");
@@ -86,7 +93,7 @@ public class ItemDao implements Dao<Item, String> {
             String type = rs.getString("type");
             String description = rs.getString("description");
             boolean is_read = rs.getBoolean("is_read");
-            allItems.add(new Item(title, author, url, isbn, type, description, is_read));
+            allItems.add(new Item(id, title, author, url, isbn, type, description, is_read));
         }
 
         rs.close();
@@ -107,7 +114,12 @@ public class ItemDao implements Dao<Item, String> {
         return true;
     }
 
-    @Override
+    //@Override
+    //public boolean save(Item object) throws SQLException, ClassNotFoundException {
+    //Tähän toteutetaan uusi oikea tallennusmuoto tietokantaan
+    //    return false;
+    //}
+
     public boolean save(String title, String author, String url, String isbn, String type, String description) throws ClassNotFoundException, SQLException {
         Connection connection = database.getConnection();
         PreparedStatement ps = connection.prepareStatement("INSERT INTO item (title, author, url, isbn, type, description, is_read) VALUES (?, ?, ?, ?, ? ,?, ?)");

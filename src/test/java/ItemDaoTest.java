@@ -18,7 +18,7 @@ public class ItemDaoTest {
 
     @Before
     public void setUp() {
-        testItem = new Item("title", "author", "URL", "isbn", "type", "description", false);
+        testItem = new Item(1,"title", "author", "URL", "isbn", "type", "description", false);
         db = new Database("jdbc:sqlite::resource:test.db");
         itemDao = new ItemDao(db);
     }

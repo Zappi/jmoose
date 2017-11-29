@@ -1,17 +1,22 @@
 package Item;
 
+import Comment.CommentController;
+import Dao.CommentDao;
 import Data.Database;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class ItemHandler {
 
     private ItemController itemController;
+    private CommentController commentController;
 
-    public ItemHandler(Database db, ItemController itemController) {
+    public ItemHandler(Database db, ItemController itemController, CommentController commentController) {
         this.itemController = itemController;
+        this.commentController = commentController;
     }
 
     public void getItems(Scanner scanner) throws SQLException, ClassNotFoundException {
@@ -42,7 +47,6 @@ public class ItemHandler {
         findOne(scanner);
 
     }
-
     public void saveItem(Scanner scanner) throws SQLException, ClassNotFoundException {
         System.out.println("Input the information of the item");
         System.out.println("Title: ");
@@ -89,13 +93,21 @@ public class ItemHandler {
 
 
 
-    //FIX THIS!!
     public void findOne(Scanner scanner) throws SQLException, ClassNotFoundException {
         HashMap<Integer, Item> listedItems = itemController.browseItems();
         System.out.println("Which number?");
         int index = Integer.parseInt(scanner.nextLine());
         Item wantedItem = (Item) listedItems.get(index);
         System.out.println(wantedItem);
+
+
+        //Tämä tulostaa myös yhden itemin kommentit aikanaan
+        //List<String> comments = commentController.listComments(wantedItem.getId());
+        //if (comments != null){
+        //    for (int i = 0; i < comments.size(); i++) {
+        //        System.out.println(comments.get(i));
+        //    }
+        //}
 
         if(wantedItem.getUrl() != null)  {
             System.out.println("Would you like to open item's link in your browser? [Yes or no]");

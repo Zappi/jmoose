@@ -2,15 +2,25 @@ package Item;
 
 public class Item {
 
-    public String title;
-    public String author;
-    public String url;
-    public String isbn;
-    public String type;
-    public String description;
-    public boolean is_read;
+    private int id;
+    private String title;
+    private String author;
+    private String url;
+    private String isbn;
+    private String type;
+    private String description;
+    private boolean is_read;
 
-    public Item(String title, String author, String URL, String isbn, String type, String description, boolean read) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Item(int id, String title, String author, String URL, String isbn, String type, String description, boolean read) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.url = URL;
