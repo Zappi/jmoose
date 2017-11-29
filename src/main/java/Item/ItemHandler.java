@@ -30,26 +30,16 @@ public class ItemHandler {
         while (!answer) {
             String answerString = scanner.nextLine().toLowerCase();
 
-            if(answerString.equals("no")) {
+            if(answerString.toLowerCase().equals("no") || answerString.toLowerCase().equals("n")) {
                 return;
-            } else if (answerString.equals("yes")) {
+            } else if (answerString.toLowerCase().equals("yes") || answerString.toLowerCase().equals("y")) {
                 answer = true;
             } else {
                 System.out.println("Command not recognized try [Yes or no]");
             }
         }
 
-        System.out.println("Which number?");
-        int index = Integer.parseInt(scanner.nextLine());
-        Item wantedItem = (Item) listedItems.get(index);
-        System.out.println(wantedItem);
-        
-        if(wantedItem.getUrl() == null)  {
-            System.out.println("Would you like to open item's link in your browser? [Yes or no]");
-            if(scanner.nextLine().toLowerCase().equals("yes")) {
-                itemController.openItemLink(wantedItem.getUrl());
-            }
-        }
+        findOne(scanner);
 
     }
 
@@ -101,7 +91,18 @@ public class ItemHandler {
 
     //FIX THIS!!
     public void findOne(Scanner scanner) throws SQLException, ClassNotFoundException {
-        System.out.println("Test");
+        HashMap<Integer, Item> listedItems = itemController.browseItems();
+        System.out.println("Which number?");
+        int index = Integer.parseInt(scanner.nextLine());
+        Item wantedItem = (Item) listedItems.get(index);
+        System.out.println(wantedItem);
+
+        if(wantedItem.getUrl() != null)  {
+            System.out.println("Would you like to open item's link in your browser? [Yes or no]");
+            if(scanner.nextLine().toLowerCase().equals("yes") || scanner.nextLine().toLowerCase().equals("y")) {
+                itemController.openItemLink(wantedItem.getUrl());
+            }
+        }
     }
 
 }

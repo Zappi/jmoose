@@ -33,7 +33,7 @@ public class Application {
                 itemHandler.getItems(scanner);
             } else if(request.equals("find one")) {
                 itemHandler.findOne(scanner);
-            }   else if (request.equals("quit")) {
+            }   else if (request.equals("quit") || request.equals("exit")) {
                 System.out.println("Good bye!");
                 break;
             } else {
