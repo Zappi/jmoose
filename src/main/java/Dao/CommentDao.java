@@ -11,6 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CommentDao implements Dao<Comment, String>{
 
     private Database database;
@@ -61,7 +68,9 @@ public class CommentDao implements Dao<Comment, String>{
         ps.setInt(2, itemId);
 
         ps.execute();
+
         ps.close();
+
         connection.close();
 
         return true;

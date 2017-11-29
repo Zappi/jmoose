@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ItemDao implements Dao<Item, String> {
 
     private Database database;
