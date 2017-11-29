@@ -27,7 +27,9 @@ public class ItemDao implements Dao<Item, String> {
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item Where title ='" + title + "'");
 
         ResultSet rs = ps.executeQuery();
-
+        if (!rs.next()) {
+            return null;
+        }
 
         title = rs.getString("title");
         String author = rs.getString("author");

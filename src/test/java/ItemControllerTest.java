@@ -4,7 +4,6 @@ import Item.Item;
 import Item.ItemController;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.*;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -45,5 +44,13 @@ public class ItemControllerTest {
     public void urlHasCorrectName() {
         String url = itemController.handleUrl("http://www.google.com");
         assertEquals("http://www.google.com", url);
+    }
+
+    @Test
+    public void savingItemWorks() throws SQLException, ClassNotFoundException {
+        itemController.save("title", "author", "URL", "isbn", "type", "description");
+        Item i = itemController.getOneItemByTitle("title");
+        itemController.deleteByTitle("title");
+        assertEquals(i.getIsbn(), "isbn");
     }
 }

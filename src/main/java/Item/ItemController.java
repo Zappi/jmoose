@@ -29,21 +29,16 @@ public class ItemController {
         return listedItems;
     }
 
-    public void save(String title, String author, String url, String isbn, String type, String description) {
-        try {
-            itemDao.save(title, author, url, isbn, type, description);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void save(String title, String author, String url, String isbn, String type, String description) throws SQLException, ClassNotFoundException {
+        itemDao.save(title, author, url, isbn, type, description);
     }
 
-    public Item getOneItemByTtile(String title) {
-        try {
-            return itemDao.findOneByTitle(title);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public void deleteByTitle(String title) throws SQLException, ClassNotFoundException {
+        itemDao.delete(title);
+    }
+
+    public Item getOneItemByTitle(String title) throws SQLException, ClassNotFoundException {
+        return itemDao.findOneByTitle(title);
     }
 
     public void openItemLink(String url) {
@@ -58,8 +53,8 @@ public class ItemController {
     }
 
     public String handleUrl(String url) {
-        if(!url.startsWith("http://")) {
-            url = "http://"+url;
+        if (!url.startsWith("http://")) {
+            url = "http://" + url;
         }
         return url;
     }
