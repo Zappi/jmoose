@@ -36,6 +36,7 @@ public class ItemDao implements Dao<Item, String> {
             return null;
         }
 
+        int id = rs.getInt("id");
         title = rs.getString("title");
         String author = rs.getString("author");
         String url = rs.getString("url");
@@ -48,7 +49,7 @@ public class ItemDao implements Dao<Item, String> {
         ps.close();
         connection.close();
 
-        return new Item(title, author, url, isbn, type, description, is_read);
+        return new Item(id, title, author, url, isbn, type, description, is_read);
     }
 
     public Item findOneByAuthor(String author) throws SQLException, ClassNotFoundException {
@@ -58,7 +59,7 @@ public class ItemDao implements Dao<Item, String> {
 
         ResultSet rs = ps.executeQuery();
 
-
+        int id = rs.getInt("id");
         String title = rs.getString("title");
         author = rs.getString("author");
         String url = rs.getString("url");
@@ -71,7 +72,7 @@ public class ItemDao implements Dao<Item, String> {
         ps.close();
         connection.close();
 
-        return new Item(title, author, url, isbn, type, description, is_read);
+        return new Item(id, title, author, url, isbn, type, description, is_read);
     }
 
 
@@ -84,6 +85,7 @@ public class ItemDao implements Dao<Item, String> {
         List<Item> allItems = new ArrayList();
 
         while (rs.next()) {
+            int id = rs.getInt("id");
             String title = rs.getString("title");
             String author = rs.getString("author");
             String url = rs.getString("url");
@@ -91,7 +93,7 @@ public class ItemDao implements Dao<Item, String> {
             String type = rs.getString("type");
             String description = rs.getString("description");
             boolean is_read = rs.getBoolean("is_read");
-            allItems.add(new Item(title, author, url, isbn, type, description, is_read));
+            allItems.add(new Item(id, title, author, url, isbn, type, description, is_read));
         }
 
         rs.close();

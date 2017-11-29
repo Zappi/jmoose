@@ -2,11 +2,8 @@ package Comment;
 
 import Dao.CommentDao;
 
-import java.awt.*;
-import java.net.URI;
-import java.net.URL;
+
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
 

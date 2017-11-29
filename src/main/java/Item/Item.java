@@ -2,6 +2,7 @@ package Item;
 
 public class Item {
 
+    private int id;
     private String title;
     private String author;
     private String url;
@@ -10,7 +11,16 @@ public class Item {
     private String description;
     private boolean is_read;
 
-    public Item(String title, String author, String URL, String isbn, String type, String description, boolean read) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Item(int id, String title, String author, String URL, String isbn, String type, String description, boolean read) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.url = URL;

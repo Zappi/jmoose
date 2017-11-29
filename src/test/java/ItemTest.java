@@ -11,7 +11,7 @@ public class ItemTest {
 
     @Before
     public void setUp() {
-        this.testItem = new Item("title","author","URL","isbn","type","description",false);
+        this.testItem = new Item(1,"title","author","URL","isbn","type","description",false);
     }
 
     @Test

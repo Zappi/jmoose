@@ -1,6 +1,8 @@
 package main;
 
 
+import Comment.CommentController;
+import Dao.CommentDao;
 import Dao.ItemDao;
 import Data.Database;
 import Item.ItemController;
@@ -15,7 +17,8 @@ public class Main {
         //jdbc:sqlite::resource:main.db points to the src/main/resources/ -folder
         Database db = new Database("jdbc:sqlite::resource:main.db");
         ItemDao dao = new ItemDao(db);
-        Application app = new Application(new ItemHandler(db, new ItemController(dao)));
+        CommentDao cDao = new CommentDao(db);
+        Application app = new Application(new ItemHandler(db, new ItemController(dao), new CommentController(cDao)));
         app.run();
     }
 }

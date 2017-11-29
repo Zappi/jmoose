@@ -1,17 +1,22 @@
 package Item;
 
+import Comment.CommentController;
+import Dao.CommentDao;
 import Data.Database;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class ItemHandler {
 
     private ItemController itemController;
+    private CommentController commentController;
 
-    public ItemHandler(Database db, ItemController itemController) {
+    public ItemHandler(Database db, ItemController itemController, CommentController commentController) {
         this.itemController = itemController;
+        this.commentController = commentController;
     }
 
     public void getItems(Scanner scanner) throws SQLException, ClassNotFoundException {
@@ -94,6 +99,14 @@ public class ItemHandler {
         int index = Integer.parseInt(scanner.nextLine());
         Item wantedItem = (Item) listedItems.get(index);
         System.out.println(wantedItem);
+
+        //Tämä tulostaa myös yhden itemin kommentit aikanaan
+        //List<String> comments = commentController.listComments(wantedItem.getId());
+        //if (comments != null){
+        //    for (int i = 0; i < comments.size(); i++) {
+        //        System.out.println(comments.get(i));
+        //    }
+        //}
 
         if(wantedItem.getUrl() != null)  {
             System.out.println("Would you like to open item's link in your browser? [Yes or no]");
