@@ -11,7 +11,6 @@ import java.util.List;
 
 
 public class CommentController {
-
 	private CommentDao commentDao;
 
 	public CommentController(CommentDao commentDao) {
@@ -19,7 +18,7 @@ public class CommentController {
 	}
 
 	public List<String> listComments(int itemId) throws SQLException, ClassNotFoundException {
-		return commentDao.findAllByItem(itemId);
+		return this.commentDao.findAllByItem(itemId);
 	}
 
 	public void save(String comment, int itemId) throws SQLException, ClassNotFoundException {

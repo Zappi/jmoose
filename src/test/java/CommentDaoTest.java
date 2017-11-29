@@ -20,7 +20,10 @@ public class CommentDaoTest {
 	@Before
 	public void setUp() {
 		Comment testComment = new Comment("comment", 1);
+<<<<<<< HEAD
 		CommentDao commentDao = new CommentDao(db);
+=======
+>>>>>>> 63fc591f6b38972bd308e1f5c20c62798b00ad62
 		db = new Database("jdbc:sqlite::resource:test.db");
 		ItemDao itemDao = new ItemDao(db);
 	}
