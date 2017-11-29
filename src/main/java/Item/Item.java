@@ -22,7 +22,20 @@ public class Item {
 
     @Override
     public String toString() {
-        return title + ", " + author + ", " + url + ", " + type;
+        String printout = "";
+        if (title != null) {
+            printout += title + ", ";
+        }
+        if (author != null) {
+            printout += author + ", ";
+        }
+        if (url != null) {
+            printout += url + ", ";
+        }
+        if (type != null) {
+            printout += type;
+        }
+        return printout;
     }
 
     public String getTitle() {

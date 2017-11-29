@@ -2,6 +2,7 @@
 
 
 [![Build Status](https://travis-ci.org/Zappi/jmoose.svg?branch=master)](https://travis-ci.org/Zappi/jmoose)
+[![codecov](https://codecov.io/gh/Zappi/jmoose/branch/master/graph/badge.svg)](https://codecov.io/gh/Zappi/jmoose)
 
 Ohtun miniprojekti, syksy 2017
 
