@@ -27,7 +27,7 @@ public class CommentDaoTest {
 
 	@Test
     public void findAllForItemTest() throws SQLException, ClassNotFoundException {
-        List<String> comments = commentDao.findAllByItem(6);
-		assertEquals(comments.size(), 2);
+        List<String> comments = commentDao.findAllByItem(8);
+		assertEquals(0, comments.size());
     }
 }

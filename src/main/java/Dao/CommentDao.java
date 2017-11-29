@@ -40,10 +40,6 @@ public class CommentDao implements Dao<Comment, String>{
 
         ResultSet rs = ps.executeQuery();
 
-        if (!rs.next()) {
-            return null;
-        }
-
         List<String> comments = new ArrayList<>();
 
         while (rs.next()) {
