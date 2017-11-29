@@ -11,7 +11,8 @@ import java.util.List;
 
 
 public class CommentController {
-	private CommentDao = commentDao;
+
+	private CommentDao commentDao;
 
 	public CommentController(CommentDao commentDao) {
 		this.commentDao = commentDao;		

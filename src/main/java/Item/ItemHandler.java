@@ -43,7 +43,8 @@ public class ItemHandler {
         int index = Integer.parseInt(scanner.nextLine());
         Item wantedItem = (Item) listedItems.get(index);
         System.out.println(wantedItem);
-        
+
+
         if(wantedItem.getUrl() == null)  {
             System.out.println("Would you like to open item's link in your browser? [Yes or no]");
             if(scanner.nextLine().toLowerCase().equals("yes")) {
