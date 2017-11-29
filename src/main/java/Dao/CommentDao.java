@@ -3,7 +3,6 @@ package Dao;
 import Data.Database;
 import Comment.Comment;
 import Interface.Dao;
-import Item.Item;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -11,9 +10,7 @@ import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CommentDao implements Dao<Comment, String>{
 
@@ -32,10 +29,10 @@ public class CommentDao implements Dao<Comment, String>{
     }
 
     //Palauttaa haetun Itemin kommentit listana String-olioita 
-    public List<String> findAllByItem(String key) throws SQLException, ClassNotFoundException {
+    public List<String> findAllByItem(int key) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
         
-        PreparedStatement ps = connection.preparedStatement("SELECT * FROM Comment WHERE item ='" + key + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Comment WHERE item ='" + key + "'");
 
         ResultSet rs = ps.executeQuery();
 
@@ -43,7 +40,7 @@ public class CommentDao implements Dao<Comment, String>{
             return null;
         }
 
-        List<String> comments = new List<>();
+        List<String> comments = new ArrayList<>();
 
         while (rs.next()) {
             String comment = rs.getString("comment");
@@ -59,7 +56,7 @@ public class CommentDao implements Dao<Comment, String>{
 
     public boolean save(String comment, int itemId) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
-        PreparedStatement ps = connection.preparedStatement("INSERT INTO Comment (comment, id) VALUES (?, ?)");
+        PreparedStatement ps = connection.prepareStatement("INSERT INTO Comment (comment, id) VALUES (?, ?)");
         
         ps.setString(1, comment);
         ps.setInt(2, itemId);

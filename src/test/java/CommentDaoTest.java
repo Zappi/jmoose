@@ -1,4 +1,5 @@
 import Dao.CommentDao;
+import Dao.ItemDao;
 import Data.Database;
 import Comment.Comment;
 import org.junit.Before;
@@ -18,9 +19,10 @@ public class CommentDaoTest {
 
 	@Before
 	public void setUp() {
-		testComment = new Comment("comment", "itemId");
+		Comment testComment = new Comment("comment", 1);
+		CommentDao commentDao = new CommentDao(db);
 		db = new Database("jdbc:sqlite::resource:test.db");
-		itemDao = new itemDao(db);
+		ItemDao itemDao = new ItemDao(db);
 	}
 
 	 @Test
