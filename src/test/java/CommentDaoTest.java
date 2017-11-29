@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -15,18 +16,22 @@ public class CommentDaoTest {
 
 	private Database db;
 	private CommentDao commentDao;
-	private Comment comment;	
+	private Comment comment;
+
 
 	@Before
 	public void setUp() {
-		Comment testComment = new Comment("comment", 1);
 		db = new Database("jdbc:sqlite::resource:test.db");
 		ItemDao itemDao = new ItemDao(db);
+		Comment testComment = new Comment("comment", 1);
+		commentDao = new CommentDao(db);
 	}
 
-	 @Test
+	@Test
     public void findAllForItemTest() throws SQLException, ClassNotFoundException {
         List<String> comments = commentDao.findAllByItem(6);
-        assertEquals(comments.size(), 2);
+        assertEquals(2, comments.size());
+        comments = commentDao.findAllByItem(8);
+		assertEquals(0, comments.size());
     }
 }
