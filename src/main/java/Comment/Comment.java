@@ -2,12 +2,12 @@ package Comment;
 import Item.Item;
 
 public class Comment {
-    public String comment;
-    public int itemId;
+    private String comment;
+    private int itemId;
 
     public Comment (String comment, int itemId){
         this.comment = comment;
-        this.item = item;
+        this.itemId = itemId;
     }
 
     @Override
@@ -23,12 +23,12 @@ public class Comment {
         this.comment = comment;
     }
 
-    public Item getItem() {
-        return item;
+    public int getItemId() {
+        return itemId;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
 }
