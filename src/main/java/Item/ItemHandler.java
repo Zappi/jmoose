@@ -124,9 +124,11 @@ public class ItemHandler {
 
     private void openSingleItemLink(Scanner scanner, Item wantedItem) {
         System.out.println("Would you like to open item's link in your browser? [Yes or no]");
-        if(scanner.nextLine().toLowerCase().equals("yes") || scanner.nextLine().toLowerCase().equals("y")) {
+        String response = scanner.nextLine();
+        if(response.toLowerCase().equals("yes") || response.toLowerCase().equals("y")) {
             itemController.openItemLink(wantedItem.getUrl());
         }
+
     }
 
 }
