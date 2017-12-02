@@ -97,7 +97,12 @@ public class ItemHandler {
         HashMap<Integer, Item> listedItems = itemController.browseItems();
         System.out.println("Which number?");
         int index = Integer.parseInt(scanner.nextLine());
+
         Item wantedItem = (Item) listedItems.get(index);
+        if(wantedItem == null) {
+            System.out.println("Invalid item! Please try again.");
+            return;
+        }
         System.out.println(wantedItem);
 
 
@@ -108,12 +113,19 @@ public class ItemHandler {
         //        System.out.println(comments.get(i));
         //    }
         //}
+        if(wantedItem.getUrl() == null) {
+            return;
+        }
 
-        if(wantedItem.getUrl() != null)  {
-            System.out.println("Would you like to open item's link in your browser? [Yes or no]");
-            if(scanner.nextLine().toLowerCase().equals("yes") || scanner.nextLine().toLowerCase().equals("y")) {
-                itemController.openItemLink(wantedItem.getUrl());
-            }
+        if(!wantedItem.getUrl().isEmpty())  {
+            openSingleItemLink(scanner, wantedItem);
+        }
+    }
+
+    private void openSingleItemLink(Scanner scanner, Item wantedItem) {
+        System.out.println("Would you like to open item's link in your browser? [Yes or no]");
+        if(scanner.nextLine().toLowerCase().equals("yes") || scanner.nextLine().toLowerCase().equals("y")) {
+            itemController.openItemLink(wantedItem.getUrl());
         }
     }
 
