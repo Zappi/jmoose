@@ -24,17 +24,20 @@ public class Application {
         System.out.println("Hello, would you like to save an item or browse your collection?");
         while (true) {
             System.out.println("[Save, Browse, Find One, Quit]");
+
+            System.out.println("For browsing press Enter. For saving type s or save. For finding type f or find");
+
             String request = scanner.nextLine().toLowerCase();
 
             request = request.toLowerCase();
-            if (request.equals("save")) {
+            if (request.contains("save") || request.equals("s")) {
                 System.out.println("");
                 itemHandler.saveItem(scanner);
-            } else if (request.equals("browse")) {
+            } else if (request.equals("browse") || request.isEmpty()) {
                 itemHandler.getItems(scanner);
-            } else if(request.equals("find one")) {
+            } else if (request.equals("f") || request.contains("find")) {
                 itemHandler.findOne(scanner);
-            }   else if (request.equals("quit") || request.equals("exit")) {
+            }   else if (request.equals("q") || request.equals("quit")) {
                 System.out.println("Good bye!");
                 break;
             } else {
