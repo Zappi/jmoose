@@ -1,7 +1,6 @@
 package main;
 
 
-import Comment.CommentController;
 import Item.ItemHandler;
 
 import java.sql.SQLException;
