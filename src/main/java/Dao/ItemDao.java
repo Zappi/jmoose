@@ -22,8 +22,30 @@ public class ItemDao implements Dao<Item, String> {
 
     @Override
     public Item findOne(String key) throws SQLException, ClassNotFoundException {
-        // Tähän toteutetaan yhden Itemin haku Id:n perusteella
-        return null;
+
+        Connection connection = database.getConnection();
+
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE id ='" + key + "'");
+
+        ResultSet rs = ps.executeQuery();
+        if (!rs.next()) {
+            return null;
+        }
+
+        int id = rs.getInt("id");
+        String title = rs.getString("title");
+        String author = rs.getString("author");
+        String url = rs.getString("url");
+        String isbn = rs.getString("isbn");
+        String type = rs.getString("type");
+        String description = rs.getString("description");
+        boolean is_read = rs.getBoolean("is_read");
+
+        rs.close();
+        ps.close();
+        connection.close();
+
+        return new Item(id, title, author, url, isbn, type, description, is_read);
     }
 
     public Item findOneByTitle(String title) throws SQLException, ClassNotFoundException {

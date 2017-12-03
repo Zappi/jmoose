@@ -92,7 +92,6 @@ public class ItemHandler {
     }
 
 
-
     public void findOne(Scanner scanner) throws SQLException, ClassNotFoundException {
         HashMap<Integer, Item> listedItems = itemController.browseItems();
         System.out.println("Which number?");
