@@ -42,10 +42,37 @@ public class Item {
         if (url != null) {
             printout += url + ", ";
         }
+        if (isbn != null) {
+            printout += isbn + ", ";
+        }
         if (type != null) {
             printout += type + ", ";
         }
-        printout += is_read;
+        if (description != null){
+            printout += description + ", ";
+        }
+        if (is_read){
+            printout += "read";
+        } else {
+            printout += "unread";
+        }
+        return printout;
+    }
+
+    public String printForBrowse() {
+        String printout = "";
+        if (title != null) {
+            printout += title + ", ";
+        }
+        if (author != null) {
+            printout += author + ", ";
+        }
+        if (url != null) {
+            printout += url + ", ";
+        }
+        if (type != null) {
+            printout += type + ", ";
+        }
         return printout;
     }
 

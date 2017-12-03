@@ -15,8 +15,25 @@ public class ItemTest {
     }
 
     @Test
-    public void toStringTest() {
-        assertEquals(testItem.toString(), "title, author, URL, type");
+    public void printForBrowseTest() {
+        assertEquals(testItem.printForBrowse(), "title, author, URL, type");
+    }
+
+    @Test
+    public void printForBrowseTestWhenNull(){
+        Item t2 = new Item(0, null, null, null, null, null,null, false);
+        assertEquals(t2.printForBrowse(),"");
+    }
+
+    @Test
+    public void toStringTest(){
+        assertEquals(testItem.toString(), "title, author, URL, isbn, type, description, unread");
+    }
+
+    @Test
+    public void toStringTestWhenNull(){
+        Item t2 = new Item(0, null, null, null, null, null,null, false);
+        assertEquals(t2.toString(),"unread");
     }
 
 
