@@ -159,4 +159,17 @@ public class ItemDao implements Dao<Item, String> {
 
         return true;
     }
+
+    public boolean changeRead(boolean read, String title) throws SQLException, ClassNotFoundException {
+        int readInt = 0;
+        if (read) {
+            readInt = 1;
+        }
+        Connection connection = database.getConnection();
+        PreparedStatement ps = connection.prepareStatement("UPDATE Item SET is_read ='" + readInt + "' WHERE title = '" + title + "'");
+        ps.execute();
+        ps.close();
+        connection.close();
+        return true;
+    }
 }

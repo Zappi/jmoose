@@ -43,8 +43,9 @@ public class Item {
             printout += url + ", ";
         }
         if (type != null) {
-            printout += type;
+            printout += type + ", ";
         }
+        printout += is_read;
         return printout;
     }
 

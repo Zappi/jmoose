@@ -35,7 +35,7 @@ public class ItemHandler {
         while (!answer) {
             String answerString = scanner.nextLine().toLowerCase();
 
-            if(answerString.toLowerCase().equals("no") || answerString.toLowerCase().equals("n")) {
+            if (answerString.toLowerCase().equals("no") || answerString.toLowerCase().equals("n")) {
                 return;
             } else if (answerString.toLowerCase().equals("yes") || answerString.toLowerCase().equals("y")) {
                 answer = true;
@@ -47,6 +47,7 @@ public class ItemHandler {
         findOne(scanner);
 
     }
+
     public void saveItem(Scanner scanner) throws SQLException, ClassNotFoundException {
         System.out.println("Input the information of the item");
         System.out.println("Title: ");
@@ -98,11 +99,11 @@ public class ItemHandler {
         int index = Integer.parseInt(scanner.nextLine());
 
         Item wantedItem = (Item) listedItems.get(index);
-        if(wantedItem == null) {
+        if (wantedItem == null) {
             System.out.println("Invalid item! Please try again.");
             return;
         }
-        System.out.println(wantedItem);
+        System.out.println(wantedItem + "\n");
 
 
         //Tämä tulostaa myös yhden itemin kommentit aikanaan
@@ -112,21 +113,36 @@ public class ItemHandler {
         //        System.out.println(comments.get(i));
         //    }
         //}
-        if(wantedItem.getUrl() == null) {
-            return;
+
+        System.out.println("Mark item as read/unread? [Read or Unread]");
+
+        if (wantedItem.getUrl() == null) {
+            String command = scanner.nextLine().toLowerCase();
+            if (command.equals("r") || command.equals("u") || command.equals("read") || command.equals("unread")) {
+                changeReadStatus(command, wantedItem.getTitle());
+                return;
+            }
         }
 
-        if(!wantedItem.getUrl().isEmpty())  {
-            openSingleItemLink(scanner, wantedItem);
+        if (!wantedItem.getUrl().isEmpty()) {
+            System.out.println("Would you like to open item's link in your browser? [Yes or no]");
+            String command = scanner.nextLine();
+            if (command.equals("r") || command.equals("u") || command.equals("read") || command.equals("unread")) {
+                changeReadStatus(command, wantedItem.getTitle());
+                return;
+            } else if (command.equals("yes") || command.equals("y")) {
+                openSingleItemLink(wantedItem);
+                return;
+            }
         }
     }
 
-    private void openSingleItemLink(Scanner scanner, Item wantedItem) {
-        System.out.println("Would you like to open item's link in your browser? [Yes or no]");
-        String response = scanner.nextLine();
-        if(response.toLowerCase().equals("yes") || response.toLowerCase().equals("y")) {
-            itemController.openItemLink(wantedItem.getUrl());
-        }
+    private void changeReadStatus(String command, String title) throws SQLException, ClassNotFoundException {
+        itemController.changeReadStatus(command, title);
+    }
+
+    private void openSingleItemLink(Item wantedItem) {
+        itemController.openItemLink(wantedItem.getUrl());
 
     }
 

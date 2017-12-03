@@ -47,7 +47,7 @@ public class ItemController {
 
     public void openItemLink(String url) {
         String fixedURL = handleUrl(url);
-        Desktop desktop = java.awt.Desktop.getDesktop();
+//        Desktop desktop = java.awt.Desktop.getDesktop();
         try {
             URI itemURL = new URL(fixedURL).toURI();
             java.awt.Desktop.getDesktop().browse(itemURL);
@@ -64,4 +64,11 @@ public class ItemController {
     }
 
 
+    public void changeReadStatus(String command, String title) throws SQLException, ClassNotFoundException {
+        if (command.equals("r") || command.equals("read")) {
+            itemDao.changeRead(true, title);
+        } else if (command.equals("u") || command.equals("unread")) {
+            itemDao.changeRead(false, title);
+        }
+    }
 }
