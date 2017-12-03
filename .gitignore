@@ -1,5 +1,6 @@
 .nb-gradle
-/build/
+nb-project/
+build/
 /*.tmp
 .idea/
-/.gradle/
+.gradle/
