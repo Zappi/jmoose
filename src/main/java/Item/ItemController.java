@@ -29,6 +29,10 @@ public class ItemController {
         return listedItems;
     }
 
+//    public Item findOneById(String id) {
+//        return;
+//    }
+
     public void save(String title, String author, String url, String isbn, String type, String description) throws SQLException, ClassNotFoundException {
         itemDao.save(title, author, url, isbn, type, description);
     }

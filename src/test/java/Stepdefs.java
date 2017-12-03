@@ -1,15 +1,19 @@
 import Dao.ItemDao;
 import Data.Database;
 import Item.Item;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class Stepdefs {
 
@@ -24,7 +28,7 @@ public class Stepdefs {
         this.itemDao = new ItemDao(db);
     }
 
-    @When("^I reguest a listing of saved items$")
+    @When("^I request a listing of saved items$")
     public void userListingSavedItems() throws SQLException, ClassNotFoundException {
         this.items = itemDao.findAll();
     }
@@ -34,10 +38,9 @@ public class Stepdefs {
         this.itemDao.save("The Alchemist", "Paulo Coelho", "", "1234-4556", "book", "International bestseller");
     }
 
-    @Then("^Items should be displayed$")
+    @Then("^items should be displayed$")
     public void displayingItems() throws SQLException, ClassNotFoundException {
         assertNotNull(items);
-        assertEquals("Da Vinci Code", itemDao.findOne("1"));
     }
 
     @Then("^Item should be stored in database$")
@@ -45,6 +48,18 @@ public class Stepdefs {
         assertEquals("The Alchemist", itemDao.findOneByAuthor("Paulo Coelho").getTitle());
     }
 
+    @And("^item with text \"([^\"]*)\" should be displayed$")
+    public void itemWithTextShouldBeDisplayed(String arg0) throws Throwable {
+        List<Item> allItems = itemDao.findAll();
+        boolean itemFound = false;
+        for (Item item : allItems) {
+            if (item.getTitle().equals(arg0)){
+                itemFound = true;
+            }
+        }
+
+        assertTrue(itemFound);
+    }
 }
 
 

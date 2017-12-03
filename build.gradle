@@ -25,7 +25,8 @@ repositories {
 
 dependencies {
     testCompile 'info.cukes:cucumber-java:' + cucumberVersion
-    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion	
+    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
+    testCompile 'info.cukes:cucumber-core:' + cucumberVersion
     testCompile group: 'junit', name: 'junit', version: '4.10'
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.7.2'
     testCompile 'org.mockito:mockito-core:2.7.21'
@@ -38,6 +39,7 @@ run{
 }
 
 test{
+    testLogging.showStandardStreams= true
     finalizedBy jacocoTestReport
 }
 
