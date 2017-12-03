@@ -19,6 +19,12 @@ public class ItemTest {
         assertEquals(testItem.toString(), "title, author, URL, type");
     }
 
+    @Test
+    public void toStringTestWhenNull(){
+        Item t2 = new Item(0, null, null, null, null, null,null, false);
+        assertEquals(t2.toString(),"");
+    }
+
 
     @Test
     public void getIdTest(){ assertEquals(testItem.getId(), 1);}
