@@ -98,7 +98,7 @@ public class ItemHandler {
         System.out.println("Which number?");
         int index = Integer.parseInt(scanner.nextLine());
 
-        Item wantedItem = (Item) listedItems.get(index);
+        Item wantedItem = listedItems.get(index);
         if (wantedItem == null) {
             System.out.println("Invalid item! Please try again.");
             return;

@@ -34,10 +34,13 @@ public class Application {
                 itemHandler.getItems(scanner);
             } else if (request.equals("f")) {
                 itemHandler.findOne(scanner);
-            }   else if (request.equals("q") || request.equals("quit")) {
+            } else if (request.equals("q") || request.equals("quit")) {
                 System.out.println("Good bye!");
                 break;
-            } else {
+            } else if (request.matches("\\d+")){
+                System.out.println("You entered a number");
+            } else
+            {
                 System.out.println("Command not recognized, try using one of the above mentioned commands! \n");
             }
         }
