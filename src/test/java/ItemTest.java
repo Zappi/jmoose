@@ -34,6 +34,8 @@ public class ItemTest {
     public void toStringTestWhenNull(){
         Item t2 = new Item(0, null, null, null, null, null,null, false);
         assertEquals(t2.toString(),"unread");
+        Item t3 = new Item(0, null, null, null, null, null,null, true);
+        assertEquals(t3.toString(),"read");
     }
 
 

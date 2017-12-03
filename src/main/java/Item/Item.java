@@ -71,7 +71,7 @@ public class Item {
             printout += url + ", ";
         }
         if (type != null) {
-            printout += type + ", ";
+            printout += type;
         }
         return printout;
     }
