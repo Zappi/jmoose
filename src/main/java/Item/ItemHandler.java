@@ -23,7 +23,7 @@ public class ItemHandler {
         HashMap<Integer, Item> itemMap = itemController.browseItems();
         int i = 1;
         for (Item item : itemMap.values()) {
-            System.out.println(i + " " + item);
+            System.out.println(i + " " + item.printForBrowse());
             i++;
         }
         selectSingleItemFromTheList(scanner, itemMap);
