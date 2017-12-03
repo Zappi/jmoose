@@ -1,6 +1,13 @@
+#Netbeans local conf files
 .nb-gradle
 nb-project/
+
+#generated build files should be locally compiled and not pushed to origin
 build/
 /*.tmp
+
+#IntelliJ local conf files
 .idea/
+
+#local gradle conf files
 .gradle/
