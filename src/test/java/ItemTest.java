@@ -19,6 +19,16 @@ public class ItemTest {
         assertEquals(testItem.toString(), "title, author, URL, type");
     }
 
+
+    @Test
+    public void getIdTest(){ assertEquals(testItem.getId(), 1);}
+
+    @Test
+    public void setIdTest(){
+        testItem.setId(2);
+        assertEquals(testItem.getId(), 2);
+    }
+
     @Test
     public void setTitleTest() {
         testItem.setTitle("test");
