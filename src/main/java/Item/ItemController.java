@@ -45,9 +45,6 @@ public class ItemController {
         return itemDao.findOneByTitle(title);
     }
 
-    public Item getOne(int itemId) {
-        return new Item(0,"","","","","","",false);
-    }
 
     public void openItemLink(String url) {
         String fixedURL = handleUrl(url);
