@@ -7,12 +7,16 @@ import Data.Database;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ItemHandler {
 
     private ItemController itemController;
     private CommentController commentController;
+
+    private final static int AUTHOR_FIELD_SIZE = 30;
+    private final static int TYPE_FIELD_SIZE = 10;
 
     public ItemHandler(Database db, ItemController itemController, CommentController commentController) {
         this.itemController = itemController;
@@ -21,11 +25,8 @@ public class ItemHandler {
 
     public void getItems(Scanner scanner) throws SQLException, ClassNotFoundException {
         HashMap<Integer, Item> itemMap = itemController.browseItems();
-        int i = 1;
-        for (Item item : itemMap.values()) {
-            System.out.println(i + " " + item.printForBrowse());
-            i++;
-        }
+        String printout = formatForBrowse(itemMap);
+        System.out.println(printout);
         findOne(scanner);
     }
 
@@ -153,9 +154,64 @@ public class ItemHandler {
         }
     }
 
-    public Item getOne(int itemId) throws SQLException, ClassNotFoundException {
+    public Item getOne(int index) throws SQLException, ClassNotFoundException {
         HashMap<Integer, Item> listedItems = itemController.browseItems();
-        Item wantedItem = listedItems.get(itemId);
+        Item wantedItem = listedItems.get(index);
         return wantedItem;
+    }
+
+    private String formatForBrowse(Map<Integer, Item> items) {
+        System.out.println(headers());
+        System.out.println(divider(headers().length()));
+        int i = 1;
+        String print = "";
+        for (Item item : items.values()) {
+            print += i + "\t|"
+                    + formatAuthor(item) + "|"
+                    + formatType(item) + "|"
+                    + "\n";
+            i++;
+        }
+
+        return print;
+    }
+
+    //UGLY! watch with care
+    private String headers(){
+        String hdrs = "ID\t|"
+                +"Author";
+        for (int i = 0; i < AUTHOR_FIELD_SIZE - "Author".length(); i++)
+            hdrs += " ";
+
+        hdrs += "|Type";
+
+        for (int i = 0; i < TYPE_FIELD_SIZE - "Type".length(); i++)
+            hdrs += " ";
+
+        hdrs += "|";
+        return hdrs;
+    }
+
+    private String divider(int length){
+        String div = "";
+        for (int i = 0; i <= length; i++)
+            div += "-";
+        return div;
+    }
+
+    private String formatAuthor(Item item){
+        String ret = "";
+        ret += item.getAuthor();
+        for (int i = 0;i < (AUTHOR_FIELD_SIZE - item.getAuthor().length()); i++)
+            ret += " ";
+        return ret;
+    }
+
+    private String formatType(Item item) {
+        String ret = "";
+        ret += item.getType();
+        for (int i = 0; i < TYPE_FIELD_SIZE - item.getType().length() ;i++)
+            ret += " ";
+        return ret;
     }
 }
