@@ -117,26 +117,22 @@ public class ItemHandler {
     }
 
     private void markReadStatus(Item wantedItem, Scanner scanner) throws SQLException, ClassNotFoundException {
-        System.out.println("Mark item as read/unread or continue? [Read, Unread, Continue]");
+        System.out.println("Mark item as read/unread or press Enter to continue [(R)ead, (U)nread]");
         String command = scanner.nextLine().toLowerCase();
         if (command.equals("r") || command.equals("u") || command.equals("read") || command.equals("unread")) {
             changeReadStatus(command, wantedItem.getTitle());
-        } else if (command.equals("c") || command.equals("continue")) {
-            return;
         }
     }
 
     private void openUrl(Item wantedItem, Scanner scanner) throws SQLException, ClassNotFoundException{
         if (!wantedItem.getUrl().isEmpty()) {
-            System.out.println("Would you like to open item's link in your browser? [Yes or no]");
+            System.out.println("Would you like to open item's link in your browser? [(Y)es or (N)o]");
             String command = scanner.nextLine();
             if (command.equals("r") || command.equals("u") || command.equals("read") || command.equals("unread")) {
                 changeReadStatus(command, wantedItem.getTitle());
                 return;
             } else if (command.equals("yes") || command.equals("y")) {
                 openSingleItemLink(wantedItem);
-                return;
-            } else if (command.equals("c") || command.equals("continue")) {
                 return;
             }
         }

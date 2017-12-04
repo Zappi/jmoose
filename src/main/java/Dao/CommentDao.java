@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class CommentDao implements Dao<Comment, String>{
+public class CommentDao implements Dao<Comment, Integer> {
 
     private Database database;
 
@@ -26,16 +26,31 @@ public class CommentDao implements Dao<Comment, String>{
 
 
     @Override
+    public Comment findOne(Integer key) throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
     public List<Comment> findAll() throws SQLException, ClassNotFoundException {
         // Tähän toteutetaan kaikkien kommenttien listaus
         // Tätähän ei oikeastaan tarvita, koska ei ole käyttötapausta, jossa listattaisiin kaikki kommentit
         return null;
     }
 
+    @Override
+    public boolean delete(Integer key) throws SQLException, ClassNotFoundException {
+        Connection connection = database.getConnection();
+        PreparedStatement ps = connection.prepareStatement("DELETE FROM Comment WHERE item='" + key + "'");
+        ps.executeUpdate();
+        ps.close();
+        connection.close();
+        return true;
+    }
+
     //Palauttaa haetun Itemin kommentit listana String-olioita 
     public List<String> findAllByItem(int key) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
-        
+
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM Comment WHERE item = " + key);
 
         ResultSet rs = ps.executeQuery();
@@ -57,7 +72,7 @@ public class CommentDao implements Dao<Comment, String>{
     public boolean save(String comment, int itemId) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
         PreparedStatement ps = connection.prepareStatement("INSERT INTO Comment (comment, item) VALUES (?, ?)");
-        
+
         ps.setString(1, comment);
         ps.setInt(2, itemId);
 
@@ -68,23 +83,5 @@ public class CommentDao implements Dao<Comment, String>{
         connection.close();
 
         return true;
-    }
-
-    @Override
-    public boolean delete(String key) throws SQLException, ClassNotFoundException {
-        // Poistaa kaikki yhteen itemiin liittyvät kommentit
-        int apu = Integer.parseInt(key);
-        Connection connection = database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("DELETE FROM Comment WHERE item='" + apu + "'");
-        ps.executeUpdate();
-        ps.close();
-        connection.close();
-        return true;
-    }
-
-    @Override
-    public Comment findOne(String key) throws SQLException, ClassNotFoundException {
-        // Tätä ei toteuteta
-        return null;
     }
 }

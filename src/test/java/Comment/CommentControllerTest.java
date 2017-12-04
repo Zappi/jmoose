@@ -34,7 +34,7 @@ public class CommentControllerTest {
     public void savingCommentsWorks() throws SQLException, ClassNotFoundException{
         commentController.save(testComment.getComment(), testComment.getItemId());
         List<String> c = commentController.listComments(2);
-        commentController.deleteAllFromOneItem("2");
+        commentController.deleteAllFromOneItem(2);
         assertTrue(c.size()>0);
     }
 }

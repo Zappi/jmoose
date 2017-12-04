@@ -58,7 +58,7 @@ public class ItemController {
     }
 
     public String handleUrl(String url) {
-        if (!url.startsWith("http://")) {
+        if (!url.startsWith("http://") || !url.startsWith("https://")) {
             url = "http://" + url;
         }
         return url;

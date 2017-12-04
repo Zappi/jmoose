@@ -22,7 +22,7 @@ public class CommentController {
 		commentDao.save(comment, itemId);
 	}
 
-	public void deleteAllFromOneItem(String key) throws SQLException, ClassNotFoundException {
-		commentDao.delete(key);
+	public void deleteAllFromOneItem(int itemId) throws SQLException, ClassNotFoundException {
+		commentDao.delete(itemId);
 	}
 }

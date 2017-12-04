@@ -41,12 +41,12 @@ public class CommentDaoTest {
 	public void saveTest() throws SQLException, ClassNotFoundException {
 		commentDao.save("Kiva", 2);
 		assertTrue(commentDao.findAllByItem(2).size() > 0);
-		assertTrue(commentDao.delete("2"));
+		assertTrue(commentDao.delete(2));
 	}
 
 	@Test
     public void findOneNullTest() throws SQLException, ClassNotFoundException {
-	    assertTrue(commentDao.findOne("1") == null);
+	    assertTrue(commentDao.findOne(1) == null);
     }
 
     @Test
