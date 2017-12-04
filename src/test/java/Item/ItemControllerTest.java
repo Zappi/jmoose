@@ -55,4 +55,13 @@ public class ItemControllerTest {
         itemController.deleteByTitle("title");
         assertEquals(i.getIsbn(), "isbn");
     }
+
+    @Test
+    public void changingReadStatusWorks() throws SQLException, ClassNotFoundException {
+        Item i = itemController.getOneItemByTitle("Da Vinci Code");
+        itemController.changeReadStatus("r", i.getTitle());
+        i = itemController.getOneItemByTitle("Da Vinci Code");
+        assertTrue(i.getIs_read());
+        itemController.changeReadStatus("u", i.getTitle());
+    }
 }

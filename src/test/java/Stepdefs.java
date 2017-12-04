@@ -48,6 +48,18 @@ public class Stepdefs {
         assertEquals("The Alchemist", itemDao.findOneByAuthor("Paulo Coelho").getTitle());
     }
 
+    @Then("^I can view it$")
+    public void viewingASingleItem() throws SQLException, ClassNotFoundException {
+        Item i = itemDao.findOneByTitle("Da Vinci Code");
+        assertEquals(i.getAuthor(), "Brown Dan");
+    }
+
+    @And("^I choose a single item$")
+    public void choosingASingleItem() throws SQLException, ClassNotFoundException {
+        Item i = itemDao.findOneByAuthor("Brown Dan");
+        assertEquals("Da Vinci Code", i.getTitle());
+    }
+
     @And("^item with text \"([^\"]*)\" should be displayed$")
     public void itemWithTextShouldBeDisplayed(String arg0) throws Throwable {
         List<Item> allItems = itemDao.findAll();

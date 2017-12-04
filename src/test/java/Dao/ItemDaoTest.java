@@ -66,4 +66,12 @@ public class ItemDaoTest {
         Item found = itemDao.findOneByAuthor("Brown Dan");
         assertEquals(found.getAuthor(), "Brown Dan");
     }
+    @Test
+    public void changingReadStatusTest() throws SQLException, ClassNotFoundException {
+        Item i = itemDao.findOneByAuthor("Brown Dan");
+        itemDao.changeRead(true ,i.getTitle());
+        i = itemDao.findOneByAuthor("Brown Dan");
+        assertTrue(i.getIs_read());
+        itemDao.changeRead(false, i.getTitle());
+    }
 }
