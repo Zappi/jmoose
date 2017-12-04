@@ -152,8 +152,8 @@ public class ItemHandler {
         String print = "";
         for (Item item : items.values()) {
             print += i + "\t|"
-                    + formatAuthor(item) + "|"
                     + formatTitle(item) + "|"
+                    + formatAuthor(item) + "|"
                     + formatType(item) + "|"
                     + "\n";
             i++;
@@ -190,9 +190,17 @@ public class ItemHandler {
         return div;
     }
 
+    private String formatTitle(Item item) {
+        String ret = "";
+        ret += cullColumn(item.getTitle(), TITLE_FIELD_SIZE);
+        for (int i = 0;i < TITLE_FIELD_SIZE - item.getTitle().length(); i++)
+            ret += " ";
+        return ret;
+    }
+
     private String formatAuthor(Item item){
         String ret = "";
-        ret += item.getAuthor();
+        ret += cullColumn(item.getAuthor(), AUTHOR_FIELD_SIZE);
         for (int i = 0;i < (AUTHOR_FIELD_SIZE - item.getAuthor().length()); i++)
             ret += " ";
         return ret;
@@ -200,17 +208,20 @@ public class ItemHandler {
 
     private String formatType(Item item) {
         String ret = "";
-        ret += item.getType();
+        ret += cullColumn(item.getType(), TYPE_FIELD_SIZE);
         for (int i = 0; i < TYPE_FIELD_SIZE - item.getType().length(); i++)
             ret += " ";
         return ret;
     }
 
-    private String formatTitle(Item item) {
+    private static String cullColumn(String content, int maxLength) {
         String ret = "";
-        ret += item.getTitle();
-        for (int i = 0;i < TITLE_FIELD_SIZE - item.getTitle().length(); i++)
-            ret += " ";
+        if (content.length() > maxLength) {
+            ret += content.substring(0, maxLength - 3);
+            ret += "...";
+        } else {
+            ret = content;
+        }
         return ret;
     }
 
