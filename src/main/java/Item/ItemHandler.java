@@ -30,7 +30,7 @@ public class ItemHandler {
     }
 
     private void selectSingleItemFromTheList(Scanner scanner, HashMap listedItems) throws SQLException, ClassNotFoundException {
-        System.out.println("Would you like to see the single item info? [Yes or no]");
+/*        System.out.println("Would you like to see the single item info? [Yes or no]");
         boolean answer = false;
         while (!answer) {
             String answerString = scanner.nextLine().toLowerCase();
@@ -42,7 +42,7 @@ public class ItemHandler {
             } else {
                 System.out.println("Command not recognized try [Yes or no]");
             }
-        }
+        }*/
 
         findOne(scanner);
 
@@ -94,17 +94,19 @@ public class ItemHandler {
 
 
     public void findOne(Scanner scanner) throws SQLException, ClassNotFoundException {
-        HashMap<Integer, Item> listedItems = itemController.browseItems();
-        System.out.println("Which number?");
-        int index = Integer.parseInt(scanner.nextLine());
-
-        Item wantedItem = listedItems.get(index);
-        if (wantedItem == null) {
-            System.out.println("Invalid item! Please try again.");
+        System.out.println("Enter digit to find by ID. Enter or text returns");
+        String input = scanner.nextLine();
+        if (!input.matches("\\d+")){
             return;
         }
-        System.out.println(wantedItem + "\n");
+        int index = Integer.parseInt(input);
+        Item wantedItem = getOne(index);
 
+        System.out.println(wantedItem + "\n");
+        if (wantedItem == null) {
+            System.out.println("Invalid item! Please try again.\n");
+            return;
+        }
 
         //Tämä tulostaa myös yhden itemin kommentit aikanaan
         //List<String> comments = commentController.listComments(wantedItem.getId());
@@ -114,16 +116,30 @@ public class ItemHandler {
         //    }
         //}
 
-        System.out.println("Mark item as read/unread? [Read or Unread]");
-
-        if (wantedItem.getUrl() == null) {
-            String command = scanner.nextLine().toLowerCase();
-            if (command.equals("r") || command.equals("u") || command.equals("read") || command.equals("unread")) {
-                changeReadStatus(command, wantedItem.getTitle());
-                return;
-            }
+        markReadStatus(wantedItem, scanner);
+        
+        if (wantedItem.getUrl() != null) {
+            openUrl(wantedItem, scanner);
         }
+    }
 
+    private void changeReadStatus(String command, String title) throws SQLException, ClassNotFoundException {
+        itemController.changeReadStatus(command, title);
+    }
+
+    private void openSingleItemLink(Item wantedItem) {
+        itemController.openItemLink(wantedItem.getUrl());
+    }
+
+    private void markReadStatus(Item wantedItem, Scanner scanner) throws SQLException, ClassNotFoundException {
+        System.out.println("Mark item as read/unread? [Read or Unread]");
+        String command = scanner.nextLine().toLowerCase();
+        if (command.equals("r") || command.equals("u") || command.equals("read") || command.equals("unread")) {
+            changeReadStatus(command, wantedItem.getTitle());
+        }
+    }
+
+    private void openUrl(Item wantedItem, Scanner scanner) throws SQLException, ClassNotFoundException{
         if (!wantedItem.getUrl().isEmpty()) {
             System.out.println("Would you like to open item's link in your browser? [Yes or no]");
             String command = scanner.nextLine();
@@ -137,13 +153,9 @@ public class ItemHandler {
         }
     }
 
-    private void changeReadStatus(String command, String title) throws SQLException, ClassNotFoundException {
-        itemController.changeReadStatus(command, title);
+    public Item getOne(int itemId) throws SQLException, ClassNotFoundException {
+        HashMap<Integer, Item> listedItems = itemController.browseItems();
+        Item wantedItem = listedItems.get(itemId);
+        return wantedItem;
     }
-
-    private void openSingleItemLink(Item wantedItem) {
-        itemController.openItemLink(wantedItem.getUrl());
-
-    }
-
 }

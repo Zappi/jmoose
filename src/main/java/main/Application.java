@@ -38,9 +38,9 @@ public class Application {
                 System.out.println("Good bye!");
                 break;
             } else if (request.matches("\\d+")){
-                System.out.println("You entered a number");
-            } else
-            {
+                if (itemHandler.getOne(Integer.parseInt(request)) != null)
+                    System.out.println(itemHandler.getOne(Integer.parseInt(request)) + "\n");
+            } else {
                 System.out.println("Command not recognized, try using one of the above mentioned commands! \n");
             }
         }
