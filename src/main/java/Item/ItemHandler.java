@@ -26,11 +26,11 @@ public class ItemHandler {
             System.out.println(i + " " + item.printForBrowse());
             i++;
         }
-        selectSingleItemFromTheList(scanner, itemMap);
+        findOne(scanner);
     }
 
-    private void selectSingleItemFromTheList(Scanner scanner, HashMap listedItems) throws SQLException, ClassNotFoundException {
-/*        System.out.println("Would you like to see the single item info? [Yes or no]");
+/*    private void selectSingleItemFromTheList(Scanner scanner, HashMap listedItems) throws SQLException, ClassNotFoundException {
+        System.out.println("Would you like to see the single item info? [Yes or no]");
         boolean answer = false;
         while (!answer) {
             String answerString = scanner.nextLine().toLowerCase();
@@ -42,11 +42,11 @@ public class ItemHandler {
             } else {
                 System.out.println("Command not recognized try [Yes or no]");
             }
-        }*/
+        }
 
         findOne(scanner);
 
-    }
+    }*/
 
     public void saveItem(Scanner scanner) throws SQLException, ClassNotFoundException {
         System.out.println("Input the information of the item");
