@@ -47,6 +47,7 @@ public class ItemController {
 
     public Item getOne(int itemId) {
         return new Item(0,"","","","","","",false);
+
     }
 
     public void openItemLink(String url) {
