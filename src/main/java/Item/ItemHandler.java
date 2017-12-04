@@ -156,6 +156,7 @@ public class ItemHandler {
         }
     }
 
+
     public Item getOne(int index) throws SQLException, ClassNotFoundException {
         HashMap<Integer, Item> listedItems = itemController.browseItems();
         Item wantedItem = listedItems.get(index);
@@ -212,8 +213,25 @@ public class ItemHandler {
     private String formatType(Item item) {
         String ret = "";
         ret += item.getType();
-        for (int i = 0; i < TYPE_FIELD_SIZE - item.getType().length() ;i++)
+        for (int i = 0; i < TYPE_FIELD_SIZE - item.getType().length(); i++)
             ret += " ";
         return ret;
+    }
+
+    public void addComment(Scanner scanner) throws SQLException, ClassNotFoundException {
+        HashMap<Integer, Item> itemMap = itemController.browseItems();
+        int i = 1;
+        for (Item item : itemMap.values()) {
+            System.out.println(i + " " + item);
+            i++;
+        }
+        System.out.println("Which item would you like to add comment to? ");
+        int number = Integer.parseInt(scanner.nextLine());
+        int item = itemMap.get(number).getId();
+        System.out.println("Comment: ");
+        String comment = scanner.nextLine();
+        commentController.save(comment, item);
+        System.out.println("Comment saved succesfully!");
+
     }
 }

@@ -22,7 +22,7 @@ public class Application {
     public void run() throws SQLException, ClassNotFoundException {
         System.out.println("Hello, would you like to save an item or browse your collection?");
         while (true) {
-            System.out.println("[Save(s), Browse(b or press Enter), Find One(f), Quit(q)]");
+            System.out.println("[(S)ave, (B)rowse( or press Enter), (F)ind One, (A)dd comment, (Q)uit]");
 
             String request = scanner.nextLine().toLowerCase();
 
@@ -35,6 +35,10 @@ public class Application {
             } else if (request.equals("f")) {
                 itemHandler.findOne(scanner);
             } else if (request.equals("q") || request.equals("quit")) {
+                break;
+            } else if(request.equals("add comment") || request.equals("a")) {
+                itemHandler.addComment(scanner);
+            } else if (request.equals("quit") || request.equals("q")) {
                 System.out.println("Good bye!");
                 break;
             } else if (request.matches("\\d+")){
