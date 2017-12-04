@@ -117,10 +117,12 @@ public class ItemHandler {
     }
 
     private void markReadStatus(Item wantedItem, Scanner scanner) throws SQLException, ClassNotFoundException {
-        System.out.println("Mark item as read/unread? [Read or Unread]");
+        System.out.println("Mark item as read/unread or continue? [Read, Unread, Continue]");
         String command = scanner.nextLine().toLowerCase();
         if (command.equals("r") || command.equals("u") || command.equals("read") || command.equals("unread")) {
             changeReadStatus(command, wantedItem.getTitle());
+        } else if (command.equals("c") || command.equals("continue")) {
+            return;
         }
     }
 
@@ -133,6 +135,8 @@ public class ItemHandler {
                 return;
             } else if (command.equals("yes") || command.equals("y")) {
                 openSingleItemLink(wantedItem);
+                return;
+            } else if (command.equals("c") || command.equals("continue")) {
                 return;
             }
         }
