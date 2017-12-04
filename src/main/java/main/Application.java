@@ -23,20 +23,20 @@ public class Application {
     public void run() throws SQLException, ClassNotFoundException {
         System.out.println("Hello, would you like to save an item or browse your collection?");
         while (true) {
-            System.out.println("[Save, Browse, Find One, Add comment, Quit]");
+            System.out.println("[(S)ave, (B)rowse, (F)ind One, (A)dd comment, (Q)uit]");
             String request = scanner.nextLine().toLowerCase();
 
             request = request.toLowerCase();
-            if (request.equals("save")) {
+            if (request.equals("save") || request.equals("s")) {
                 System.out.println("");
                 itemHandler.saveItem(scanner);
-            } else if (request.equals("browse")) {
+            } else if (request.equals("browse") || request.equals("b")) {
                 itemHandler.getItems(scanner);
-            } else if(request.equals("find one")) {
+            } else if(request.equals("find one") || request.equals("f")) {
                 itemHandler.findOne(scanner);
-            } else if(request.equals("add comment")) {
+            } else if(request.equals("add comment") || request.equals("a")) {
                 itemHandler.addComment(scanner);
-            } else if (request.equals("quit")) {
+            } else if (request.equals("quit") || request.equals("q")) {
                 System.out.println("Good bye!");
                 break;
             } else {
