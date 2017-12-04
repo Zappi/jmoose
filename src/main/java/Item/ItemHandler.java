@@ -17,6 +17,7 @@ public class ItemHandler {
 
     private final static int AUTHOR_FIELD_SIZE = 30;
     private final static int TYPE_FIELD_SIZE = 10;
+    private final static int TITLE_FIELD_SIZE = 40;
 
     public ItemHandler(Database db, ItemController itemController, CommentController commentController) {
         this.itemController = itemController;
@@ -29,25 +30,6 @@ public class ItemHandler {
         System.out.println(printout);
         findOne(scanner);
     }
-
-/*    private void selectSingleItemFromTheList(Scanner scanner, HashMap listedItems) throws SQLException, ClassNotFoundException {
-        System.out.println("Would you like to see the single item info? [Yes or no]");
-        boolean answer = false;
-        while (!answer) {
-            String answerString = scanner.nextLine().toLowerCase();
-
-            if (answerString.toLowerCase().equals("no") || answerString.toLowerCase().equals("n")) {
-                return;
-            } else if (answerString.toLowerCase().equals("yes") || answerString.toLowerCase().equals("y")) {
-                answer = true;
-            } else {
-                System.out.println("Command not recognized try [Yes or no]");
-            }
-        }
-
-        findOne(scanner);
-
-    }*/
 
     public void saveItem(Scanner scanner) throws SQLException, ClassNotFoundException {
         System.out.println("Input the information of the item");
@@ -171,6 +153,7 @@ public class ItemHandler {
         for (Item item : items.values()) {
             print += i + "\t|"
                     + formatAuthor(item) + "|"
+                    + formatTitle(item) + "|"
                     + formatType(item) + "|"
                     + "\n";
             i++;
@@ -184,6 +167,11 @@ public class ItemHandler {
         String hdrs = "ID\t|"
                 +"Author";
         for (int i = 0; i < AUTHOR_FIELD_SIZE - "Author".length(); i++)
+            hdrs += " ";
+
+        hdrs += "|Title";
+
+        for (int i = 0; i <TITLE_FIELD_SIZE - "Title".length(); i++)
             hdrs += " ";
 
         hdrs += "|Type";
@@ -218,6 +206,14 @@ public class ItemHandler {
         return ret;
     }
 
+    private String formatTitle(Item item) {
+        String ret = "";
+        ret += item.getTitle();
+        for (int i = 0;i < TITLE_FIELD_SIZE - item.getTitle().length(); i++)
+            ret += " ";
+        return ret;
+    }
+
     public void addComment(Scanner scanner) throws SQLException, ClassNotFoundException {
         HashMap<Integer, Item> itemMap = itemController.browseItems();
         int i = 1;
@@ -232,6 +228,5 @@ public class ItemHandler {
         String comment = scanner.nextLine();
         commentController.save(comment, item);
         System.out.println("Comment saved succesfully!");
-
     }
 }
