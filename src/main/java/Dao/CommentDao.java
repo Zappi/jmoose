@@ -56,7 +56,7 @@ public class CommentDao implements Dao<Comment, String>{
 
     public boolean save(String comment, int itemId) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("INSERT INTO Comment (comment, id) VALUES (?, ?)");
+        PreparedStatement ps = connection.prepareStatement("INSERT INTO Comment (comment, item) VALUES (?, ?)");
         
         ps.setString(1, comment);
         ps.setInt(2, itemId);

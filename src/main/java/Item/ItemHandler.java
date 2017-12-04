@@ -116,4 +116,19 @@ public class ItemHandler {
         }
     }
 
+    public void addComment(Scanner scanner) throws SQLException, ClassNotFoundException {
+        HashMap<Integer, Item> itemMap = itemController.browseItems();
+        int i = 1;
+        for (Item item : itemMap.values()) {
+            System.out.println(i + " " + item);
+            i++;
+        }
+        System.out.println("Which item would you like to add comment to? ");
+        int number = Integer.parseInt(scanner.nextLine());
+        int item = itemMap.get(number).getId();
+        System.out.println("Comment: ");
+        String comment = scanner.nextLine();
+        commentController.save(comment, item);
+        System.out.println("Comment saved succesfully!");
+    }
 }

@@ -23,7 +23,7 @@ public class Application {
     public void run() throws SQLException, ClassNotFoundException {
         System.out.println("Hello, would you like to save an item or browse your collection?");
         while (true) {
-            System.out.println("[Save, Browse, Find One, Quit]");
+            System.out.println("[Save, Browse, Find One, Add comment, Quit]");
             String request = scanner.nextLine().toLowerCase();
 
             request = request.toLowerCase();
@@ -34,7 +34,9 @@ public class Application {
                 itemHandler.getItems(scanner);
             } else if(request.equals("find one")) {
                 itemHandler.findOne(scanner);
-            }   else if (request.equals("quit")) {
+            } else if(request.equals("add comment")) {
+                itemHandler.addComment(scanner);
+            } else if (request.equals("quit")) {
                 System.out.println("Good bye!");
                 break;
             } else {
