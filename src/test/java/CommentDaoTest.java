@@ -34,4 +34,23 @@ public class CommentDaoTest {
         comments = commentDao.findAllByItem(8);
 		assertEquals(0, comments.size());
     }
+
+    @Test
+	public void saveTest() throws SQLException, ClassNotFoundException {
+		commentDao.save("Kiva", 2);
+		assertTrue(commentDao.findAllByItem(2).size() > 0);
+		assertTrue(commentDao.delete("2"));
+	}
+
+	@Test
+    public void findOneNullTest() throws SQLException, ClassNotFoundException {
+	    assertTrue(commentDao.findOne("1") == null);
+    }
+
+    @Test
+    public void findAllNullTest() throws SQLException, ClassNotFoundException {
+        assertTrue(commentDao.findAll() == null);
+    }
+
+
 }

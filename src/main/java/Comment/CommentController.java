@@ -21,4 +21,8 @@ public class CommentController {
 	public void save(String comment, int itemId) throws SQLException, ClassNotFoundException {
 		commentDao.save(comment, itemId);
 	}
+
+	public void deleteAllFromOneItem(String key) throws SQLException, ClassNotFoundException {
+		commentDao.delete(key);
+	}
 }

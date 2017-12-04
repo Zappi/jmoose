@@ -18,7 +18,7 @@ public class CommentControllerTest {
 
     @Before
     public void setUp() {
-        testComment = new Comment("kannattaa lukea",1);
+        testComment = new Comment("kannattaa lukea",2);
         db = new Database("jdbc:sqlite::resource:test.db");
         this.commentDao = new CommentDao(db);
         this.commentController = new CommentController(commentDao);
@@ -32,8 +32,9 @@ public class CommentControllerTest {
 
     @Test
     public void savingCommentsWorks() throws SQLException, ClassNotFoundException{
-        //commentController.save(testComment);
-        List<String> c = commentController.listComments(1);
-
+        commentController.save(testComment.getComment(), testComment.getItemId());
+        List<String> c = commentController.listComments(2);
+        commentController.deleteAllFromOneItem("2");
+        assertTrue(c.size()>0);
     }
 }

@@ -56,7 +56,7 @@ public class CommentDao implements Dao<Comment, String>{
 
     public boolean save(String comment, int itemId) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("INSERT INTO Comment (comment, id) VALUES (?, ?)");
+        PreparedStatement ps = connection.prepareStatement("INSERT INTO Comment (comment, item) VALUES (?, ?)");
         
         ps.setString(1, comment);
         ps.setInt(2, itemId);
@@ -72,8 +72,14 @@ public class CommentDao implements Dao<Comment, String>{
 
     @Override
     public boolean delete(String key) throws SQLException, ClassNotFoundException {
-        // Tätä ei toteuteta
-        return false;
+        // Poistaa kaikki yhteen itemiin liittyvät kommentit
+        int apu = Integer.parseInt(key);
+        Connection connection = database.getConnection();
+        PreparedStatement ps = connection.prepareStatement("DELETE FROM Comment WHERE item='" + apu + "'");
+        ps.executeUpdate();
+        ps.close();
+        connection.close();
+        return true;
     }
 
     @Override
