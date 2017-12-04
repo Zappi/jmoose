@@ -39,22 +39,22 @@ public class Item {
         if (author != null) {
             printout += author + ", ";
         }
+        if (type != null) {
+            printout += type + ", ";
+        }
         if (url != null) {
             printout += url + ", ";
         }
         if (isbn != null) {
             printout += isbn + ", ";
         }
-        if (type != null) {
-            printout += type + ", ";
-        }
-        if (description != null){
-            printout += description + ", ";
-        }
         if (is_read){
             printout += "read";
         } else {
             printout += "unread";
+        }
+        if (description != null){
+            printout += "\n" + description;
         }
         return printout;
     }

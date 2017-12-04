@@ -109,13 +109,15 @@ public class ItemHandler {
             return;
         }
 
-        //Tämä tulostaa myös yhden itemin kommentit aikanaan
-        //List<String> comments = commentController.listComments(wantedItem.getId());
-        //if (comments != null){
-        //    for (int i = 0; i < comments.size(); i++) {
-        //        System.out.println(comments.get(i));
-        //    }
-        //}
+        //Tämä tulostaa itemin kommentit
+        List<String> comments = commentController.listComments(wantedItem.getId());
+        if (comments != null){
+            System.out.println("Comments:");
+            for (int i = 0; i < comments.size(); i++) {
+                System.out.println(comments.get(i));
+            }
+            System.out.println();
+        }
 
         markReadStatus(wantedItem, scanner);
         

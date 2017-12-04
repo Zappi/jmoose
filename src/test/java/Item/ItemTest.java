@@ -29,7 +29,7 @@ public class ItemTest {
 
     @Test
     public void toStringTest(){
-        assertEquals(testItem.toString(), "title, author, URL, isbn, type, description, unread");
+        assertEquals(testItem.toString(), "title, author, type, URL, isbn, unread\ndescription");
     }
 
     @Test
