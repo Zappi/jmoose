@@ -45,7 +45,7 @@ public class ItemController {
         return itemDao.findOneByTitle(title);
     }
 
-
+    
     public void openItemLink(String url) {
         String fixedURL = handleUrl(url);
 //        Desktop desktop = java.awt.Desktop.getDesktop();
