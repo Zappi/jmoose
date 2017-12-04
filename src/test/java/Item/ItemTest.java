@@ -1,3 +1,5 @@
+package Item;
+
 import Item.Item;
 import org.junit.Before;
 import org.junit.Test;
