@@ -131,7 +131,8 @@ public class ItemDao implements Dao<Item, String> {
     @Override
     public boolean delete(String title) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("DELETE FROM Item WHERE title='" + title + "'");
+        PreparedStatement ps = connection.prepareStatement("DELETE FROM Item WHERE title= ? ");
+        ps.setString(1, title);
         ps.executeUpdate();
         ps.close();
         connection.close();
@@ -168,7 +169,9 @@ public class ItemDao implements Dao<Item, String> {
             readInt = 1;
         }
         Connection connection = database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("UPDATE Item SET is_read ='" + readInt + "' WHERE title = '" + title + "'");
+        PreparedStatement ps = connection.prepareStatement("UPDATE Item SET is_read = ? WHERE title = ?");
+        ps.setInt(1, readInt);
+        ps.setString(2, title);
         ps.execute();
         ps.close();
         connection.close();
