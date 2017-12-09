@@ -1,6 +1,5 @@
 package Item;
 
-import Item.Item;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,21 +25,7 @@ public class ItemTest {
         Item t2 = new Item(0, null, null, null, null, null,null, false);
         assertEquals(t2.printForBrowse(),"");
     }
-
-    @Test
-    public void toStringTest(){
-        assertEquals(testItem.toString(), "title, author, type, URL, isbn, unread\ndescription");
-    }
-
-    @Test
-    public void toStringTestWhenNull(){
-        Item t2 = new Item(0, null, null, null, null, null,null, false);
-        assertEquals(t2.toString(),"unread");
-        Item t3 = new Item(0, null, null, null, null, null,null, true);
-        assertEquals(t3.toString(),"read");
-    }
-
-
+    
     @Test
     public void getIdTest(){ assertEquals(testItem.getId(), 1);}
 
