@@ -1,7 +1,6 @@
 package Item;
 
 import Comment.CommentController;
-import Dao.CommentDao;
 import Data.Database;
 
 import java.sql.SQLException;
@@ -232,8 +231,15 @@ public class ItemHandler {
             System.out.println(i + " " + item);
             i++;
         }
+        int number;
         System.out.println("Which item would you like to add comment to? ");
-        int number = Integer.parseInt(scanner.nextLine());
+        try {
+            number = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid item id");
+            return;
+        }
+
         int item = itemMap.get(number).getId();
         System.out.println("Comment: ");
         String comment = scanner.nextLine();
