@@ -51,7 +51,8 @@ public class ItemDao implements Dao<Item, String> {
     public Item findOneByTitle(String title) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE title ='" + title + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE title = ?");
+        ps.setString(1, title);
 
         ResultSet rs = ps.executeQuery();
         if (!rs.next()) {
@@ -77,7 +78,8 @@ public class ItemDao implements Dao<Item, String> {
     public Item findOneByAuthor(String author) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE author ='" + author + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE author = ?");
+        ps.setString(1, author);
 
         ResultSet rs = ps.executeQuery();
 

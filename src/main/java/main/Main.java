@@ -21,7 +21,8 @@ public class Main {
         CommentDao cDao = new CommentDao(db);
         ItemController ic = new ItemController(dao);
         CommentController cc = new CommentController(cDao);
-        Application app = new Application(new ItemHandler(ic,cc), new CommentHandler(ic,cc));
+        CommentHandler ch = new CommentHandler(ic, cc);
+        Application app = new Application(new ItemHandler(ic,cc, ch),ch);
         app.run();
     }
 }

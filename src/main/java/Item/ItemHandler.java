@@ -1,6 +1,7 @@
 package Item;
 
 import Comment.CommentController;
+import Comment.CommentHandler;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -12,14 +13,16 @@ public class ItemHandler {
 
     private ItemController itemController;
     private CommentController commentController;
+    private CommentHandler commentHandler;
 
     private final static int AUTHOR_FIELD_SIZE = 30;
     private final static int TYPE_FIELD_SIZE = 10;
     private final static int TITLE_FIELD_SIZE = 40;
 
-    public ItemHandler(ItemController itemController, CommentController commentController) {
+    public ItemHandler(ItemController itemController, CommentController commentController, CommentHandler commentHandler) {
         this.itemController = itemController;
         this.commentController = commentController;
+        this.commentHandler = commentHandler;
     }
 
     public void getItems(Scanner scanner) throws SQLException, ClassNotFoundException {
@@ -93,6 +96,7 @@ public class ItemHandler {
 
         printCommentsForSingleItem(wantedItem);
         markReadStatus(wantedItem, scanner);
+        commentHandler.addCommentForBrowsedItem(scanner, wantedItem);
         
         if (wantedItem.getUrl() != null) {
             openUrl(wantedItem, scanner);
@@ -101,12 +105,14 @@ public class ItemHandler {
 
     private void printCommentsForSingleItem(Item wantedItem) throws SQLException, ClassNotFoundException {
         List<String> comments = commentController.listComments(wantedItem.getId());
+        System.out.println("Comments: ");
         if (comments != null){
-            System.out.println("Comments:");
             for (int i = 0; i < comments.size(); i++) {
                 System.out.println(comments.get(i));
             }
             System.out.println();
+        } else {
+            System.out.print("No comments yet, add the first one!");
         }
     }
 

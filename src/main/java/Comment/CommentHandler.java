@@ -41,4 +41,25 @@ public class CommentHandler {
         commentController.save(comment, item);
         System.out.println("Comment saved succesfully!");
     }
+
+    public void addCommentForBrowsedItem(Scanner scanner, Item item) throws SQLException, ClassNotFoundException {
+        int itemId = itemController.getOneItemByTitle(item.getTitle()).getId();
+        if(!doesUserWanToAddNewComment(scanner)) {
+            return;
+        }
+
+        System.out.println("Comment: ");
+        String comment = scanner.nextLine();
+        commentController.save(comment, itemId);
+        System.out.println("Comment saved succesfully!");
+    }
+
+    private boolean doesUserWanToAddNewComment(Scanner scanner) {
+        System.out.println("Would you like to add a new comment for the item?");
+        String response = scanner.nextLine();
+        if(response.contains("y")) {
+            return true;
+        }
+        return false;
+    }
 }
