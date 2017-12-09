@@ -1,6 +1,7 @@
 package main;
 
 
+import Comment.CommentHandler;
 import Item.ItemHandler;
 
 import java.sql.SQLException;
@@ -10,11 +11,13 @@ import java.util.Scanner;
 public class Application {
 
     private ItemHandler itemHandler;
+    private CommentHandler commentHandler;
     public Scanner scanner;
 
-    public Application(ItemHandler itemHandler) {
+    public Application(ItemHandler itemHandler, CommentHandler commentHandler) {
         this.scanner = new Scanner(System.in);
         this.itemHandler = itemHandler;
+        this.commentHandler = commentHandler;
     }
 
 
@@ -37,7 +40,7 @@ public class Application {
             } else if (request.equals("q") || request.equals("quit")) {
                 break;
             } else if(request.equals("add comment") || request.equals("a")) {
-                itemHandler.addComment(scanner);
+                commentHandler.addComment(scanner);
             } else if (request.equals("quit") || request.equals("q")) {
                 System.out.println("Good bye!");
                 break;

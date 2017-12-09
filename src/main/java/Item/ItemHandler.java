@@ -1,7 +1,6 @@
 package Item;
 
 import Comment.CommentController;
-import Data.Database;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -18,7 +17,7 @@ public class ItemHandler {
     private final static int TYPE_FIELD_SIZE = 10;
     private final static int TITLE_FIELD_SIZE = 40;
 
-    public ItemHandler(Database db, ItemController itemController, CommentController commentController) {
+    public ItemHandler(ItemController itemController, CommentController commentController) {
         this.itemController = itemController;
         this.commentController = commentController;
     }
@@ -46,7 +45,7 @@ public class ItemHandler {
         }
 
         System.out.println("Type: ");
-        String type = scanner.nextLine();
+        String type = scanner.nextLine().toLowerCase();
         if (type.isEmpty()) {
             System.out.println("Type can not be empty");
             return;
@@ -84,13 +83,23 @@ public class ItemHandler {
         int index = Integer.parseInt(input);
         Item wantedItem = getOne(index);
 
-        System.out.println(wantedItem + "\n");
         if (wantedItem == null) {
             System.out.println("Invalid item! Please try again.\n");
             return;
         }
 
-        //Tämä tulostaa itemin kommentit
+        System.out.println(wantedItem + "\n");
+
+
+        printCommentsForSingleItem(wantedItem);
+        markReadStatus(wantedItem, scanner);
+        
+        if (wantedItem.getUrl() != null) {
+            openUrl(wantedItem, scanner);
+        }
+    }
+
+    private void printCommentsForSingleItem(Item wantedItem) throws SQLException, ClassNotFoundException {
         List<String> comments = commentController.listComments(wantedItem.getId());
         if (comments != null){
             System.out.println("Comments:");
@@ -98,12 +107,6 @@ public class ItemHandler {
                 System.out.println(comments.get(i));
             }
             System.out.println();
-        }
-
-        markReadStatus(wantedItem, scanner);
-        
-        if (wantedItem.getUrl() != null) {
-            openUrl(wantedItem, scanner);
         }
     }
 
@@ -224,26 +227,4 @@ public class ItemHandler {
         return ret;
     }
 
-    public void addComment(Scanner scanner) throws SQLException, ClassNotFoundException {
-        HashMap<Integer, Item> itemMap = itemController.browseItems();
-        int i = 1;
-        for (Item item : itemMap.values()) {
-            System.out.println(i + " " + item);
-            i++;
-        }
-        int number;
-        System.out.println("Which item would you like to add comment to? ");
-        try {
-            number = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid item id");
-            return;
-        }
-
-        int item = itemMap.get(number).getId();
-        System.out.println("Comment: ");
-        String comment = scanner.nextLine();
-        commentController.save(comment, item);
-        System.out.println("Comment saved succesfully!");
-    }
 }

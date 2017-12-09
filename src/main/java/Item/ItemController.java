@@ -2,7 +2,6 @@ package Item;
 
 import Dao.ItemDao;
 
-import java.awt.*;
 import java.net.URI;
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,10 +28,6 @@ public class ItemController {
         return listedItems;
     }
 
-//    public Item findOneById(String id) {
-//        return;
-//    }
-
     public void save(String title, String author, String url, String isbn, String type, String description) throws SQLException, ClassNotFoundException {
         itemDao.save(title, author, url, isbn, type, description);
     }
@@ -48,7 +43,6 @@ public class ItemController {
     
     public void openItemLink(String url) {
         String fixedURL = handleUrl(url);
-//        Desktop desktop = java.awt.Desktop.getDesktop();
         try {
             URI itemURL = new URL(fixedURL).toURI();
             java.awt.Desktop.getDesktop().browse(itemURL);

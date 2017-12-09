@@ -3,19 +3,15 @@ import Dao.CommentDao;
 import Dao.ItemDao;
 import Data.Database;
 import Item.Item;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class Stepdefs {
 
@@ -26,12 +22,15 @@ public class Stepdefs {
     private CommentDao commentDao;
     private CommentController commentController;
 
+
+
     @Given("^Database is initialized$")
     public void initializingDatabase() throws SQLException, ClassNotFoundException {
         this.db = new Database("jdbc:sqlite::resource:test.db");
         this.itemDao = new ItemDao(db);
         this.commentDao = new CommentDao(db);
         this.commentController = new CommentController(commentDao);
+
     }
 
     @When("^I request a listing of saved items$")
