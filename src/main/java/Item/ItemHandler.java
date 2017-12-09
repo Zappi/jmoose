@@ -167,13 +167,13 @@ public class ItemHandler {
     //UGLY! watch with care
     private String headers(){
         String hdrs = "ID\t|"
-                +"Author";
-        for (int i = 0; i < AUTHOR_FIELD_SIZE - "Author".length(); i++)
+                +"Title";
+        for (int i = 0; i < TITLE_FIELD_SIZE - "Title".length(); i++)
             hdrs += " ";
 
-        hdrs += "|Title";
+        hdrs += "|Author";
 
-        for (int i = 0; i <TITLE_FIELD_SIZE - "Title".length(); i++)
+        for (int i = 0; i <AUTHOR_FIELD_SIZE - "Author".length(); i++)
             hdrs += " ";
 
         hdrs += "|Type";
