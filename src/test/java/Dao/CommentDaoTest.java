@@ -1,14 +1,11 @@
 package Dao;
 
-import Dao.CommentDao;
-import Dao.ItemDao;
 import Data.Database;
-import Comment.Comment;
+import Model.Comment;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;

@@ -1,7 +1,9 @@
 package Comment;
 
+import Controller.CommentController;
 import Dao.CommentDao;
 import Data.Database;
+import Model.Comment;
 import org.junit.Before;
 import org.junit.Test;
 

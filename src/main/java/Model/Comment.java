@@ -1,5 +1,4 @@
-package Comment;
-import Item.Item;
+package Model;
 
 public class Comment {
     private String comment;

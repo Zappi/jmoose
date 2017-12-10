@@ -2,8 +2,8 @@ package Item;
 
 import Dao.ItemDao;
 import Data.Database;
-import Item.Item;
-import Item.ItemController;
+import Controller.ItemController;
+import Model.Item;
 import org.junit.Before;
 import org.junit.Test;
 
