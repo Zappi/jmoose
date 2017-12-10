@@ -11,6 +11,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class ItemDaoTest {
 
@@ -74,4 +75,10 @@ public class ItemDaoTest {
         assertTrue(i.getIs_read());
         itemDao.changeRead(false, i.getTitle());
     }
+    
+    @Test
+    public void deleteFailTest() throws ClassNotFoundException, SQLException {
+        assertFalse(itemDao.delete(""));
+    }
+    
 }

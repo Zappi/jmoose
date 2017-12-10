@@ -37,10 +37,10 @@ public class CommentDao implements Dao<Comment, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement ps = connection.prepareStatement("DELETE FROM Comment WHERE item= ? ");
         ps.setInt(1, key);
-        ps.executeUpdate();
+        int affectedRows = ps.executeUpdate();
         ps.close();
         connection.close();
-        return true;
+        return affectedRows > 0;
     }
 
     //Palauttaa haetun Itemin kommentit listana String-olioita 

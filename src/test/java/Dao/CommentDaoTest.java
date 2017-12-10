@@ -13,6 +13,7 @@ import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class CommentDaoTest {
 
@@ -53,6 +54,10 @@ public class CommentDaoTest {
     public void findAllNullTest() throws SQLException, ClassNotFoundException {
         assertTrue(commentDao.findAll() == null);
     }
-
+    
+    @Test
+    public void deleteFailTest() throws SQLException, ClassNotFoundException {
+        assertFalse(commentDao.delete(-1));
+    }
 
 }
