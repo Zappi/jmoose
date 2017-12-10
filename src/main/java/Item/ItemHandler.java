@@ -79,11 +79,11 @@ public class ItemHandler {
 
     public void findOne(Scanner scanner) throws SQLException, ClassNotFoundException {
         System.out.println("Enter digit to find by ID. Enter or text returns");
-        String input = scanner.nextLine();
-        if (!input.matches("\\d+")){
+        String id = scanner.nextLine();
+        if (!id.matches("\\d+")){
             return;
         }
-        int index = Integer.parseInt(input);
+        int index = Integer.parseInt(id);
         Item wantedItem = getOne(index);
 
         if (wantedItem == null) {
