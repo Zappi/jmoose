@@ -12,4 +12,4 @@ Software engineering miniproject, fall 2017
 
 [Definition of done](https://github.com/Zappi/jmoose/blob/master/DoD.md)
 
-[Latest Release](https://github.com/Zappi/jmoose/releases/latest)
+[Latest Release](https://github.com/Zappi/jmoose/releases/latest) 
