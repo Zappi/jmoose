@@ -1,6 +1,7 @@
-package Item;
+package Controller;
 
 import Dao.ItemDao;
+import Model.Item;
 
 import java.net.URI;
 import java.net.URL;

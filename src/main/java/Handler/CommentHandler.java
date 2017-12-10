@@ -1,7 +1,8 @@
-package Comment;
+package Handler;
 
-import Item.Item;
-import Item.ItemController;
+import Controller.CommentController;
+import Model.Item;
+import Controller.ItemController;
 
 import java.sql.SQLException;
 import java.util.HashMap;

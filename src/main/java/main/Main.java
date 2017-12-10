@@ -1,13 +1,13 @@
 package main;
 
 
-import Comment.CommentController;
-import Comment.CommentHandler;
+import Controller.CommentController;
+import Handler.CommentHandler;
 import Dao.CommentDao;
 import Dao.ItemDao;
 import Data.Database;
-import Item.ItemController;
-import Item.ItemHandler;
+import Controller.ItemController;
+import Handler.ItemHandler;
 
 import java.io.IOException;
 import java.sql.SQLException;

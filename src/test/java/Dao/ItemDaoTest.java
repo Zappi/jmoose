@@ -1,8 +1,7 @@
 package Dao;
 
-import Dao.ItemDao;
 import Data.Database;
-import Item.Item;
+import Model.Item;
 import org.junit.Before;
 import org.junit.Test;
 
