@@ -1,6 +1,7 @@
 package Comment;
 
 
+import Model.Comment;
 import org.junit.Before;
 import org.junit.Test;
 

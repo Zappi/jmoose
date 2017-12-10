@@ -1,6 +1,6 @@
 package Dao;
 
-import Comment.Comment;
+import Model.Comment;
 import Data.Database;
 import Interface.Dao;
 

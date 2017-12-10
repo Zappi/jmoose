@@ -1,8 +1,8 @@
-import Comment.CommentController;
+import Controller.CommentController;
 import Dao.CommentDao;
 import Dao.ItemDao;
 import Data.Database;
-import Item.Item;
+import Model.Item;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

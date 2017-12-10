@@ -1,8 +1,8 @@
 package main;
 
 
-import Comment.CommentHandler;
-import Item.ItemHandler;
+import Handler.CommentHandler;
+import Handler.ItemHandler;
 
 import java.sql.SQLException;
 import java.util.Scanner;

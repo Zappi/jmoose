@@ -1,4 +1,4 @@
-package Comment;
+package Controller;
 
 import Dao.CommentDao;
 

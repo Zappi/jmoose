@@ -2,7 +2,7 @@ package Dao;
 
 import Data.Database;
 import Interface.Dao;
-import Item.Item;
+import Model.Item;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
