@@ -2,12 +2,12 @@ package Item;
 
 import Dao.ItemDao;
 
-import java.awt.*;
 import java.net.URI;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ItemController {
 
@@ -29,10 +29,6 @@ public class ItemController {
         return listedItems;
     }
 
-//    public Item findOneById(String id) {
-//        return;
-//    }
-
     public void save(String title, String author, String url, String isbn, String type, String description) throws SQLException, ClassNotFoundException {
         itemDao.save(title, author, url, isbn, type, description);
     }
@@ -45,10 +41,9 @@ public class ItemController {
         return itemDao.findOneByTitle(title);
     }
 
-    
+
     public void openItemLink(String url) {
         String fixedURL = handleUrl(url);
-//        Desktop desktop = java.awt.Desktop.getDesktop();
         try {
             URI itemURL = new URL(fixedURL).toURI();
             java.awt.Desktop.getDesktop().browse(itemURL);
@@ -71,5 +66,37 @@ public class ItemController {
         } else if (command.equals("u") || command.equals("unread")) {
             itemDao.changeRead(false, title);
         }
+    }
+
+    public Map<Integer, Item> getRead(Map<Integer, Item> items) throws SQLException, ClassNotFoundException {
+        List<Item> read = itemDao.getRead();
+        for (Item item : items.values()) {
+            if (!read.contains(item)) {
+                read.add(item);
+            }
+        }
+        items.clear();
+        int index = 1;
+        for (Item item:read) {
+            items.put(index, item);
+            index++;
+        }
+        return items;
+    }
+
+    public Map<Integer, Item> getUnread(Map<Integer, Item> items) throws SQLException, ClassNotFoundException {
+        List<Item> unread = itemDao.getUnread();
+        for (Item item : items.values()) {
+            if (!unread.contains(item)) {
+                unread.add(item);
+            }
+        }
+        items.clear();
+        int index = 1;
+        for (Item item:unread) {
+            items.put(index, item);
+            index++;
+        }
+        return items;
     }
 }

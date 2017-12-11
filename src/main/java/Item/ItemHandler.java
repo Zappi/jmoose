@@ -1,8 +1,7 @@
 package Item;
 
 import Comment.CommentController;
-import Dao.CommentDao;
-import Data.Database;
+import Comment.CommentHandler;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -14,14 +13,17 @@ public class ItemHandler {
 
     private ItemController itemController;
     private CommentController commentController;
+    private CommentHandler commentHandler;
 
     private final static int AUTHOR_FIELD_SIZE = 30;
     private final static int TYPE_FIELD_SIZE = 10;
     private final static int TITLE_FIELD_SIZE = 40;
+    private final static int READ_FIELD_SIZE = 5;
 
-    public ItemHandler(Database db, ItemController itemController, CommentController commentController) {
+    public ItemHandler(ItemController itemController, CommentController commentController, CommentHandler commentHandler) {
         this.itemController = itemController;
         this.commentController = commentController;
+        this.commentHandler = commentHandler;
     }
 
     public void getItems(Scanner scanner) throws SQLException, ClassNotFoundException {
@@ -47,7 +49,7 @@ public class ItemHandler {
         }
 
         System.out.println("Type: ");
-        String type = scanner.nextLine();
+        String type = scanner.nextLine().toLowerCase();
         if (type.isEmpty()) {
             System.out.println("Type can not be empty");
             return;
@@ -77,32 +79,26 @@ public class ItemHandler {
 
 
     public void findOne(Scanner scanner) throws SQLException, ClassNotFoundException {
-        System.out.println("Enter digit to find by ID. Enter or text returns");
+        System.out.println("Enter digit(s) to find by ID. Enter or text returns");
         String input = scanner.nextLine();
-        if (!input.matches("\\d+")){
+        if (!input.matches("\\d+")) {
             return;
         }
         int index = Integer.parseInt(input);
         Item wantedItem = getOne(index);
 
-        System.out.println(wantedItem + "\n");
         if (wantedItem == null) {
             System.out.println("Invalid item! Please try again.\n");
             return;
         }
 
-        //Tämä tulostaa itemin kommentit
-        List<String> comments = commentController.listComments(wantedItem.getId());
-        if (comments != null){
-            System.out.println("Comments:");
-            for (int i = 0; i < comments.size(); i++) {
-                System.out.println(comments.get(i));
-            }
-            System.out.println();
-        }
+        System.out.println(wantedItem + "\n");
 
+
+        commentHandler.printComments(wantedItem);
         markReadStatus(wantedItem, scanner);
-        
+        commentHandler.addCommentForBrowsedItem(scanner, wantedItem);
+
         if (wantedItem.getUrl() != null) {
             openUrl(wantedItem, scanner);
         }
@@ -124,7 +120,7 @@ public class ItemHandler {
         }
     }
 
-    private void openUrl(Item wantedItem, Scanner scanner) throws SQLException, ClassNotFoundException{
+    private void openUrl(Item wantedItem, Scanner scanner) throws SQLException, ClassNotFoundException {
         if (!wantedItem.getUrl().isEmpty()) {
             System.out.println("Would you like to open item's link in your browser? [(Y)es or (N)o]");
             String command = scanner.nextLine();
@@ -136,6 +132,28 @@ public class ItemHandler {
                 return;
             }
         }
+    }
+
+
+    public void filterSearch(Scanner scanner) throws SQLException, ClassNotFoundException {
+        Map<Integer, Item> items = new HashMap<>();
+        while (true) {
+            System.out.println("Select a filter: [(R)ead, [U]nread]");
+            String request = scanner.nextLine();
+            if (request.equals("r") || request.equals("read")) {
+                items = itemController.getRead(items);
+            } else if (request.equals("u") || request.equals("unread")) {
+                items = itemController.getUnread(items);
+            }
+            System.out.println("Add another filter? [(Y)es, (N)o or Enter]");
+            String answer = scanner.nextLine();
+            if (!answer.equals("y") && !answer.equals("yes")) {
+                break;
+            }
+        }
+        String printout = formatForBrowse(items);
+        System.out.println(printout);
+        findOne(scanner);
     }
 
 
@@ -155,6 +173,7 @@ public class ItemHandler {
                     + formatTitle(item) + "|"
                     + formatAuthor(item) + "|"
                     + formatType(item) + "|"
+                    + formatRead(item) + "|"
                     + "\n";
             i++;
         }
@@ -163,15 +182,15 @@ public class ItemHandler {
     }
 
     //UGLY! watch with care
-    private String headers(){
+    private String headers() {
         String hdrs = "ID\t|"
-                +"Author";
-        for (int i = 0; i < AUTHOR_FIELD_SIZE - "Author".length(); i++)
+                + "Title";
+        for (int i = 0; i < TITLE_FIELD_SIZE - "Title".length(); i++)
             hdrs += " ";
 
-        hdrs += "|Title";
+        hdrs += "|Author";
 
-        for (int i = 0; i <TITLE_FIELD_SIZE - "Title".length(); i++)
+        for (int i = 0; i < AUTHOR_FIELD_SIZE - "Author".length(); i++)
             hdrs += " ";
 
         hdrs += "|Type";
@@ -179,11 +198,16 @@ public class ItemHandler {
         for (int i = 0; i < TYPE_FIELD_SIZE - "Type".length(); i++)
             hdrs += " ";
 
+        hdrs += "|Read";
+
+        for (int i = 0; i < READ_FIELD_SIZE - "Read".length(); i++)
+            hdrs += " ";
+
         hdrs += "|";
         return hdrs;
     }
 
-    private String divider(int length){
+    private String divider(int length) {
         String div = "";
         for (int i = 0; i <= length; i++)
             div += "-";
@@ -193,15 +217,15 @@ public class ItemHandler {
     private String formatTitle(Item item) {
         String ret = "";
         ret += cullColumn(item.getTitle(), TITLE_FIELD_SIZE);
-        for (int i = 0;i < TITLE_FIELD_SIZE - item.getTitle().length(); i++)
+        for (int i = 0; i < TITLE_FIELD_SIZE - item.getTitle().length(); i++)
             ret += " ";
         return ret;
     }
 
-    private String formatAuthor(Item item){
+    private String formatAuthor(Item item) {
         String ret = "";
         ret += cullColumn(item.getAuthor(), AUTHOR_FIELD_SIZE);
-        for (int i = 0;i < (AUTHOR_FIELD_SIZE - item.getAuthor().length()); i++)
+        for (int i = 0; i < (AUTHOR_FIELD_SIZE - item.getAuthor().length()); i++)
             ret += " ";
         return ret;
     }
@@ -210,6 +234,19 @@ public class ItemHandler {
         String ret = "";
         ret += cullColumn(item.getType(), TYPE_FIELD_SIZE);
         for (int i = 0; i < TYPE_FIELD_SIZE - item.getType().length(); i++)
+            ret += " ";
+        return ret;
+    }
+
+    private String formatRead(Item item) {
+        String ret = "";
+        if (item.getIs_read()) {
+            ret += cullColumn("  x", READ_FIELD_SIZE);
+        } else {
+            ret += cullColumn("   ", READ_FIELD_SIZE);
+        }
+
+        for (int i = 0; i <= READ_FIELD_SIZE - ret.length(); i++)
             ret += " ";
         return ret;
     }
@@ -223,21 +260,5 @@ public class ItemHandler {
             ret = content;
         }
         return ret;
-    }
-
-    public void addComment(Scanner scanner) throws SQLException, ClassNotFoundException {
-        HashMap<Integer, Item> itemMap = itemController.browseItems();
-        int i = 1;
-        for (Item item : itemMap.values()) {
-            System.out.println(i + " " + item);
-            i++;
-        }
-        System.out.println("Which item would you like to add comment to? ");
-        int number = Integer.parseInt(scanner.nextLine());
-        int item = itemMap.get(number).getId();
-        System.out.println("Comment: ");
-        String comment = scanner.nextLine();
-        commentController.save(comment, item);
-        System.out.println("Comment saved succesfully!");
     }
 }

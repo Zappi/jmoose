@@ -25,7 +25,8 @@ public class ItemDao implements Dao<Item, String> {
 
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE id ='" + key + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE id =?");
+        ps.setString(1, key);
 
         ResultSet rs = ps.executeQuery();
         if (!rs.next()) {
@@ -51,7 +52,8 @@ public class ItemDao implements Dao<Item, String> {
     public Item findOneByTitle(String title) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE title ='" + title + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE title = ?");
+        ps.setString(1, title);
 
         ResultSet rs = ps.executeQuery();
         if (!rs.next()) {
@@ -77,7 +79,8 @@ public class ItemDao implements Dao<Item, String> {
     public Item findOneByAuthor(String author) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE author ='" + author + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE author = ?");
+        ps.setString(1, author);
 
         ResultSet rs = ps.executeQuery();
 
@@ -104,19 +107,7 @@ public class ItemDao implements Dao<Item, String> {
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item");
         ResultSet rs = ps.executeQuery();
 
-        List<Item> allItems = new ArrayList();
-
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String title = rs.getString("title");
-            String author = rs.getString("author");
-            String url = rs.getString("url");
-            String isbn = rs.getString("isbn");
-            String type = rs.getString("type");
-            String description = rs.getString("description");
-            boolean is_read = rs.getBoolean("is_read");
-            allItems.add(new Item(id, title, author, url, isbn, type, description, is_read));
-        }
+        List<Item> allItems = handleResultSet(rs);
 
         rs.close();
         ps.close();
@@ -129,7 +120,8 @@ public class ItemDao implements Dao<Item, String> {
     @Override
     public boolean delete(String title) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("DELETE FROM Item WHERE title='" + title + "'");
+        PreparedStatement ps = connection.prepareStatement("DELETE FROM Item WHERE title= ? ");
+        ps.setString(1, title);
         ps.executeUpdate();
         ps.close();
         connection.close();
@@ -166,10 +158,58 @@ public class ItemDao implements Dao<Item, String> {
             readInt = 1;
         }
         Connection connection = database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("UPDATE Item SET is_read ='" + readInt + "' WHERE title = '" + title + "'");
+        PreparedStatement ps = connection.prepareStatement("UPDATE Item SET is_read = ? WHERE title = ?");
+        ps.setInt(1, readInt);
+        ps.setString(2, title);
         ps.execute();
         ps.close();
         connection.close();
         return true;
+    }
+
+    public List<Item> getRead() throws ClassNotFoundException, SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE is_read = 1");
+        ResultSet rs = ps.executeQuery();
+
+        List<Item> items = handleResultSet(rs);
+
+        rs.close();
+        ps.close();
+        connection.close();
+
+        return items;
+    }
+
+    public List<Item> getUnread() throws SQLException, ClassNotFoundException {
+        Connection connection = database.getConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE NOT is_read = 1");
+        ResultSet rs = ps.executeQuery();
+
+        List<Item> items = handleResultSet(rs);
+
+        rs.close();
+        ps.close();
+        connection.close();
+
+        return items;
+    }
+
+    public List<Item> handleResultSet(ResultSet rs) throws SQLException {
+
+        List<Item> items = new ArrayList();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String title = rs.getString("title");
+            String author = rs.getString("author");
+            String url = rs.getString("url");
+            String isbn = rs.getString("isbn");
+            String type = rs.getString("type");
+            String description = rs.getString("description");
+            boolean is_read = rs.getBoolean("is_read");
+            items.add(new Item(id, title, author, url, isbn, type, description, is_read));
+        }
+        return items;
     }
 }

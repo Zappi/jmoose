@@ -32,31 +32,27 @@ public class Item {
 
     @Override
     public String toString() {
-        String printout = "";
-        if (title != null) {
-            printout += title + ", ";
-        }
-        if (author != null) {
-            printout += author + ", ";
-        }
-        if (type != null) {
-            printout += type + ", ";
-        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Title: " + title + "\n");
+        sb.append("Author: " + author + "\n");
+        sb.append("Type: " + type + "\n");
+
         if (url != null) {
-            printout += url + ", ";
+            sb.append("URL: " + url + "\n");
         }
         if (isbn != null) {
-            printout += isbn + ", ";
+            sb.append("ISBN: " + isbn + "\n");
         }
         if (is_read){
-            printout += "read";
+            sb.append("Status: read" + "\n");
         } else {
-            printout += "unread";
+            sb.append("Status: unread" + "\n");
         }
         if (description != null){
-            printout += "\n" + description;
+            sb.append("Descirption: " + "\n" + description);
         }
-        return printout;
+        return sb.toString();
     }
 
     public String printForBrowse() {

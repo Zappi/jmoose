@@ -14,8 +14,3 @@ Software engineering miniproject, fall 2017
 
 [Latest Release](https://github.com/Zappi/jmoose/releases/latest)
 
-
-
-
-
-

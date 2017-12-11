@@ -1,20 +1,13 @@
 package Dao;
 
-import Data.Database;
 import Comment.Comment;
+import Data.Database;
 import Interface.Dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 
 public class CommentDao implements Dao<Comment, Integer> {
 
@@ -40,7 +33,8 @@ public class CommentDao implements Dao<Comment, Integer> {
     @Override
     public boolean delete(Integer key) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
-        PreparedStatement ps = connection.prepareStatement("DELETE FROM Comment WHERE item='" + key + "'");
+        PreparedStatement ps = connection.prepareStatement("DELETE FROM Comment WHERE item= ? ");
+        ps.setInt(1, key);
         ps.executeUpdate();
         ps.close();
         connection.close();
@@ -51,8 +45,8 @@ public class CommentDao implements Dao<Comment, Integer> {
     public List<String> findAllByItem(int key) throws SQLException, ClassNotFoundException {
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Comment WHERE item = " + key);
-
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Comment WHERE item = ?");
+        ps.setInt(1, key);
         ResultSet rs = ps.executeQuery();
 
         List<String> comments = new ArrayList<>();
