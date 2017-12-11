@@ -25,7 +25,8 @@ public class ItemDao implements Dao<Item, String> {
 
         Connection connection = database.getConnection();
 
-        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE id ='" + key + "'");
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE id =?");
+        ps.setString(1, key);
 
         ResultSet rs = ps.executeQuery();
         if (!rs.next()) {
