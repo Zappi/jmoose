@@ -12,7 +12,7 @@ public class ItemTest {
 
     @Before
     public void setUp() {
-        this.testItem = new Item(1,"title","author","URL","isbn","type","description",false);
+        this.testItem = new Item(1, "title", "author", "URL", "isbn", "type", "description", false);
     }
 
     @Test
@@ -21,16 +21,18 @@ public class ItemTest {
     }
 
     @Test
-    public void printForBrowseTestWhenNull(){
-        Item t2 = new Item(0, null, null, null, null, null,null, false);
-        assertEquals(t2.printForBrowse(),"");
+    public void printForBrowseTestWhenNull() {
+        Item t2 = new Item(0, null, null, null, null, null, null, false);
+        assertEquals(t2.printForBrowse(), "");
     }
-    
-    @Test
-    public void getIdTest(){ assertEquals(testItem.getId(), 1);}
 
     @Test
-    public void setIdTest(){
+    public void getIdTest() {
+        assertEquals(testItem.getId(), 1);
+    }
+
+    @Test
+    public void setIdTest() {
         testItem.setId(2);
         assertEquals(testItem.getId(), 2);
     }
@@ -110,5 +112,47 @@ public class ItemTest {
     public void setIsReadTest() {
         testItem.setIs_read(true);
         assertTrue(testItem.getIs_read());
+    }
+
+    @Test
+    public void toStringTestWhenUnread() {
+        assertEquals(testItem.toString(), buildToString());
+    }
+    @Test
+    public void toStringTestWhenRead() {
+        testItem.setIs_read(true);
+        assertEquals(testItem.toString(), buildToString());
+    }
+
+    @Test
+    public void toStringTestBranches() {
+        testItem.setIsbn(null);
+        testItem.setDescription(null);
+        testItem.setUrl(null);
+        assertEquals(testItem.toString(), buildToString());
+    }
+
+    public String buildToString() {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Title: " + testItem.getTitle() + "\n");
+        sb.append("Author: " + testItem.getAuthor() + "\n");
+        sb.append("Type: " + testItem.getType() + "\n");
+
+        if (testItem.getUrl() != null) {
+            sb.append("URL: " + testItem.getUrl() + "\n");
+        }
+        if (testItem.getIsbn() != null) {
+            sb.append("ISBN: " + testItem.getIsbn() + "\n");
+        }
+        if (testItem.getIs_read()) {
+            sb.append("Status: read" + "\n");
+        } else {
+            sb.append("Status: unread" + "\n");
+        }
+        if (testItem.getDescription() != null) {
+            sb.append("Descirption: " + "\n" + testItem.getDescription());
+        }
+        return sb.toString();
     }
 }

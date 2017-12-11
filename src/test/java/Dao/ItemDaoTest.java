@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 public class ItemDaoTest {
@@ -73,5 +74,17 @@ public class ItemDaoTest {
         i = itemDao.findOneByAuthor("Brown Dan");
         assertTrue(i.getIs_read());
         itemDao.changeRead(false, i.getTitle());
+    }
+    @Test
+    public void findingReadTest() throws SQLException,ClassNotFoundException {
+        itemDao.changeRead(true,"Da Vinci Code");
+        List<Item> items = itemDao.getRead();
+        assertTrue(items.get(0).getIs_read());
+        itemDao.changeRead(false, "Da Vinci Code");
+    }
+    @Test
+    public void findingUnReadTest() throws SQLException, ClassNotFoundException {
+        List<Item> items = itemDao.getUnread();
+        assertFalse(items.get(0).getIs_read());
     }
 }
