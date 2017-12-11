@@ -25,22 +25,24 @@ public class Application {
     public void run() throws SQLException, ClassNotFoundException {
         System.out.println("Hello, would you like to save an item or browse your collection?");
         while (true) {
-            System.out.println("[(Enter or B)rowse(), (S)ave, (F)ind One, (Q)uit]");
+            System.out.println("[Enter or (B)rowse, (F)ilter, (S)ave, (G)et One, (Q)uit]");
 
             String request = scanner.nextLine().toLowerCase();
 
             request = request.toLowerCase();
-            if (request.equals("s")) {
+            if (request.equals("s") || request.equals("save")) {
                 System.out.println("");
                 itemHandler.saveItem(scanner);
-            } else if (request.isEmpty() || request.equals("b")) {
+            } else if (request.isEmpty() || request.equals("b") || request.equals("browse")) {
                 itemHandler.getItems(scanner);
-            } else if (request.equals("f")) {
+            } else if (request.equals("f") || (request.equals("filter"))) {
+                itemHandler.filterSearch(scanner);
+            } else if (request.equals("g") || request.equals("get")) {
                 itemHandler.findOne(scanner);
-            } else if (request.equals("q")) {
+            } else if (request.equals("q") || request.equals("quit")) {
                 System.out.println("Good bye!");
                 break;
-            } else if (request.matches("\\d+")){
+            } else if (request.matches("\\d+")) {
                 if (itemHandler.getOne(Integer.parseInt(request)) != null)
                     System.out.println(itemHandler.getOne(Integer.parseInt(request)) + "\n");
             } else {

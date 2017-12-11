@@ -107,19 +107,7 @@ public class ItemDao implements Dao<Item, String> {
         PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item");
         ResultSet rs = ps.executeQuery();
 
-        List<Item> allItems = new ArrayList();
-
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String title = rs.getString("title");
-            String author = rs.getString("author");
-            String url = rs.getString("url");
-            String isbn = rs.getString("isbn");
-            String type = rs.getString("type");
-            String description = rs.getString("description");
-            boolean is_read = rs.getBoolean("is_read");
-            allItems.add(new Item(id, title, author, url, isbn, type, description, is_read));
-        }
+        List<Item> allItems = handleResultSet(rs);
 
         rs.close();
         ps.close();
@@ -177,5 +165,51 @@ public class ItemDao implements Dao<Item, String> {
         ps.close();
         connection.close();
         return true;
+    }
+
+    public List<Item> getRead() throws ClassNotFoundException, SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE is_read = 1");
+        ResultSet rs = ps.executeQuery();
+
+        List<Item> items = handleResultSet(rs);
+
+        rs.close();
+        ps.close();
+        connection.close();
+
+        return items;
+    }
+
+    public List<Item> getUnread() throws SQLException, ClassNotFoundException {
+        Connection connection = database.getConnection();
+        PreparedStatement ps = connection.prepareStatement("SELECT * FROM Item WHERE NOT is_read = 1");
+        ResultSet rs = ps.executeQuery();
+
+        List<Item> items = handleResultSet(rs);
+
+        rs.close();
+        ps.close();
+        connection.close();
+
+        return items;
+    }
+
+    public List<Item> handleResultSet(ResultSet rs) throws SQLException {
+
+        List<Item> items = new ArrayList();
+
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String title = rs.getString("title");
+            String author = rs.getString("author");
+            String url = rs.getString("url");
+            String isbn = rs.getString("isbn");
+            String type = rs.getString("type");
+            String description = rs.getString("description");
+            boolean is_read = rs.getBoolean("is_read");
+            items.add(new Item(id, title, author, url, isbn, type, description, is_read));
+        }
+        return items;
     }
 }

@@ -81,7 +81,7 @@ public class ItemHandler {
     public void findOne(Scanner scanner) throws SQLException, ClassNotFoundException {
         System.out.println("Enter digit(s) to find by ID. Enter or text returns");
         String input = scanner.nextLine();
-        if (!input.matches("\\d+")){
+        if (!input.matches("\\d+")) {
             return;
         }
         int index = Integer.parseInt(input);
@@ -98,7 +98,7 @@ public class ItemHandler {
         commentHandler.printComments(wantedItem);
         markReadStatus(wantedItem, scanner);
         commentHandler.addCommentForBrowsedItem(scanner, wantedItem);
-        
+
         if (wantedItem.getUrl() != null) {
             openUrl(wantedItem, scanner);
         }
@@ -120,7 +120,7 @@ public class ItemHandler {
         }
     }
 
-    private void openUrl(Item wantedItem, Scanner scanner) throws SQLException, ClassNotFoundException{
+    private void openUrl(Item wantedItem, Scanner scanner) throws SQLException, ClassNotFoundException {
         if (!wantedItem.getUrl().isEmpty()) {
             System.out.println("Would you like to open item's link in your browser? [(Y)es or (N)o]");
             String command = scanner.nextLine();
@@ -132,6 +132,28 @@ public class ItemHandler {
                 return;
             }
         }
+    }
+
+
+    public void filterSearch(Scanner scanner) throws SQLException, ClassNotFoundException {
+        Map<Integer, Item> items = new HashMap<>();
+        while (true) {
+            System.out.println("Select a filter: [(R)ead, [U]nread]");
+            String request = scanner.nextLine();
+            if (request.equals("r") || request.equals("read")) {
+                items = itemController.getRead(items);
+            } else if (request.equals("u") || request.equals("unread")) {
+                items = itemController.getUnread(items);
+            }
+            System.out.println("Add another filter? [(Y)es, (N)o or Enter]");
+            String answer = scanner.nextLine();
+            if (!answer.equals("y") && !answer.equals("yes")) {
+                break;
+            }
+        }
+        String printout = formatForBrowse(items);
+        System.out.println(printout);
+        findOne(scanner);
     }
 
 
@@ -160,15 +182,15 @@ public class ItemHandler {
     }
 
     //UGLY! watch with care
-    private String headers(){
+    private String headers() {
         String hdrs = "ID\t|"
-                +"Title";
+                + "Title";
         for (int i = 0; i < TITLE_FIELD_SIZE - "Title".length(); i++)
             hdrs += " ";
 
         hdrs += "|Author";
 
-        for (int i = 0; i <AUTHOR_FIELD_SIZE - "Author".length(); i++)
+        for (int i = 0; i < AUTHOR_FIELD_SIZE - "Author".length(); i++)
             hdrs += " ";
 
         hdrs += "|Type";
@@ -185,7 +207,7 @@ public class ItemHandler {
         return hdrs;
     }
 
-    private String divider(int length){
+    private String divider(int length) {
         String div = "";
         for (int i = 0; i <= length; i++)
             div += "-";
@@ -195,15 +217,15 @@ public class ItemHandler {
     private String formatTitle(Item item) {
         String ret = "";
         ret += cullColumn(item.getTitle(), TITLE_FIELD_SIZE);
-        for (int i = 0;i < TITLE_FIELD_SIZE - item.getTitle().length(); i++)
+        for (int i = 0; i < TITLE_FIELD_SIZE - item.getTitle().length(); i++)
             ret += " ";
         return ret;
     }
 
-    private String formatAuthor(Item item){
+    private String formatAuthor(Item item) {
         String ret = "";
         ret += cullColumn(item.getAuthor(), AUTHOR_FIELD_SIZE);
-        for (int i = 0;i < (AUTHOR_FIELD_SIZE - item.getAuthor().length()); i++)
+        for (int i = 0; i < (AUTHOR_FIELD_SIZE - item.getAuthor().length()); i++)
             ret += " ";
         return ret;
     }
@@ -218,7 +240,7 @@ public class ItemHandler {
 
     private String formatRead(Item item) {
         String ret = "";
-        if (item.getIs_read()){
+        if (item.getIs_read()) {
             ret += cullColumn("  x", READ_FIELD_SIZE);
         } else {
             ret += cullColumn("   ", READ_FIELD_SIZE);
@@ -239,5 +261,4 @@ public class ItemHandler {
         }
         return ret;
     }
-
 }

@@ -79,9 +79,9 @@ public class CommentHandler {
     }
 
     private boolean doesUserWanToAddNewComment(Scanner scanner) {
-        System.out.println("Would you like to add a new comment for the item? (y/n)");
-        String response = scanner.nextLine();
-        if(response.contains("y")) {
+        System.out.println("Add a new comment for the item? [(Y)es, (N)o]");
+        String response = scanner.nextLine().toLowerCase();
+        if(response.contains("y") || response.contains("yes")) {
             return true;
         }
         return false;
