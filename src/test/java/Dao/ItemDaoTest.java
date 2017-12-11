@@ -75,6 +75,7 @@ public class ItemDaoTest {
         assertTrue(i.getIs_read());
         itemDao.changeRead(false, i.getTitle());
     }
+
     @Test
     public void findingReadTest() throws SQLException,ClassNotFoundException {
         itemDao.changeRead(true,"Da Vinci Code");
@@ -87,4 +88,11 @@ public class ItemDaoTest {
         List<Item> items = itemDao.getUnread();
         assertFalse(items.get(0).getIs_read());
     }
+
+    
+    @Test
+    public void deleteFailTest() throws ClassNotFoundException, SQLException {
+        assertFalse(itemDao.delete(""));
+    }
+    
 }
