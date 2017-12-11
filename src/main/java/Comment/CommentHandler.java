@@ -59,7 +59,7 @@ public class CommentHandler {
             if (text.equals("")) {
                 break;
             } else {
-                comment = comment + "\n" + text;
+                comment += "\n" + text;
             }
         }
         if (!comment.equals("")){
@@ -90,13 +90,13 @@ public class CommentHandler {
     public void printComments(Item item) throws SQLException, ClassNotFoundException {
         List<String> comments = commentController.listComments(item.getId());
         System.out.println("Comments: ");
-        if (comments != null){
+        if (comments.size() == 0) {
+            System.out.print("No comments yet, add the first one!\n\n");
+        } else if (comments != null){
             for (int i = 0; i < comments.size(); i++) {
                 System.out.println(comments.get(i));
             }
             System.out.println();
-        } else {
-            System.out.print("No comments yet, add the first one!");
-        }
+        } else return;
     }
 }

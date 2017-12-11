@@ -25,7 +25,7 @@ public class Application {
     public void run() throws SQLException, ClassNotFoundException {
         System.out.println("Hello, would you like to save an item or browse your collection?");
         while (true) {
-            System.out.println("[(S)ave, (B)rowse( or press Enter), (F)ind One, (Q)uit]");
+            System.out.println("[(Enter or B)rowse(), (S)ave, (F)ind One, (Q)uit]");
 
             String request = scanner.nextLine().toLowerCase();
 
