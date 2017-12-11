@@ -18,6 +18,7 @@ public class ItemHandler {
     private final static int AUTHOR_FIELD_SIZE = 30;
     private final static int TYPE_FIELD_SIZE = 10;
     private final static int TITLE_FIELD_SIZE = 40;
+    private final static int READ_FIELD_SIZE = 5;
 
     public ItemHandler(ItemController itemController, CommentController commentController, CommentHandler commentHandler) {
         this.itemController = itemController;
@@ -150,6 +151,7 @@ public class ItemHandler {
                     + formatTitle(item) + "|"
                     + formatAuthor(item) + "|"
                     + formatType(item) + "|"
+                    + formatRead(item) + "|"
                     + "\n";
             i++;
         }
@@ -172,6 +174,11 @@ public class ItemHandler {
         hdrs += "|Type";
 
         for (int i = 0; i < TYPE_FIELD_SIZE - "Type".length(); i++)
+            hdrs += " ";
+
+        hdrs += "|Read";
+
+        for (int i = 0; i < READ_FIELD_SIZE - "Read".length(); i++)
             hdrs += " ";
 
         hdrs += "|";
@@ -205,6 +212,19 @@ public class ItemHandler {
         String ret = "";
         ret += cullColumn(item.getType(), TYPE_FIELD_SIZE);
         for (int i = 0; i < TYPE_FIELD_SIZE - item.getType().length(); i++)
+            ret += " ";
+        return ret;
+    }
+
+    private String formatRead(Item item) {
+        String ret = "";
+        if (item.getIs_read()){
+            ret += cullColumn("  x", READ_FIELD_SIZE);
+        } else {
+            ret += cullColumn("   ", READ_FIELD_SIZE);
+        }
+
+        for (int i = 0; i <= READ_FIELD_SIZE - ret.length(); i++)
             ret += " ";
         return ret;
     }
