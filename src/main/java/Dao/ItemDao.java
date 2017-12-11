@@ -122,10 +122,10 @@ public class ItemDao implements Dao<Item, String> {
         Connection connection = database.getConnection();
         PreparedStatement ps = connection.prepareStatement("DELETE FROM Item WHERE title= ? ");
         ps.setString(1, title);
-        ps.executeUpdate();
+        int affectedRows = ps.executeUpdate();
         ps.close();
         connection.close();
-        return true;
+        return affectedRows > 0;
     }
 
     //@Override
