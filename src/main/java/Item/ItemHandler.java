@@ -104,16 +104,7 @@ public class ItemHandler {
     }
 
     private void printCommentsForSingleItem(Item wantedItem) throws SQLException, ClassNotFoundException {
-        List<String> comments = commentController.listComments(wantedItem.getId());
-        System.out.println("Comments: ");
-        if (comments != null){
-            for (int i = 0; i < comments.size(); i++) {
-                System.out.println(comments.get(i));
-            }
-            System.out.println();
-        } else {
-            System.out.print("No comments yet, add the first one!");
-        }
+        commentHandler.printComments(wantedItem);
     }
 
     private void changeReadStatus(String command, String title) throws SQLException, ClassNotFoundException {

@@ -5,6 +5,7 @@ import Item.ItemController;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class CommentHandler {
@@ -39,7 +40,7 @@ public class CommentHandler {
         System.out.println("Comment: ");
         String comment = scanner.nextLine();
         commentController.save(comment, item);
-        System.out.println("Comment saved succesfully!");
+        System.out.println("Comment saved successfully!");
     }
 
     public void addCommentForBrowsedItem(Scanner scanner, Item item) throws SQLException, ClassNotFoundException {
@@ -48,18 +49,44 @@ public class CommentHandler {
             return;
         }
 
-        System.out.println("Comment: ");
-        String comment = scanner.nextLine();
-        commentController.save(comment, itemId);
-        System.out.println("Comment saved succesfully!");
+        System.out.println("Type in the comment: (use enter for a line break and empty line to quit)");
+        String comment = null;
+
+        while (true) {
+            String text = scanner.nextLine();
+            if (text.equals("")) {
+                break;
+            } else {
+                comment = comment + "\n" + text;
+            }
+        }
+        if (!comment.equals(null)){
+            commentController.save(comment, itemId);
+            System.out.println("Comment saved succesfully!");
+        } else {
+            System.out.println("No comment saved.");
+        }
     }
 
     private boolean doesUserWanToAddNewComment(Scanner scanner) {
-        System.out.println("Would you like to add a new comment for the item?");
+        System.out.println("Would you like to add a new comment for the item? (y/n)");
         String response = scanner.nextLine();
         if(response.contains("y")) {
             return true;
         }
         return false;
+    }
+
+    public void printComments(Item item) throws SQLException, ClassNotFoundException {
+        List<String> comments = commentController.listComments(item.getId());
+        System.out.println("Comments: ");
+        if (comments != null){
+            for (int i = 0; i < comments.size(); i++) {
+                System.out.println(comments.get(i));
+            }
+            System.out.println();
+        } else {
+            System.out.print("No comments yet, add the first one!");
+        }
     }
 }
