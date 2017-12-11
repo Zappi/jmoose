@@ -3,6 +3,7 @@ import Dao.CommentDao;
 import Dao.ItemDao;
 import Data.Database;
 import Item.Item;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -21,7 +22,6 @@ public class Stepdefs {
     private List<Item> items;
     private CommentDao commentDao;
     private CommentController commentController;
-
 
 
     @Given("^Database is initialized$")
@@ -103,6 +103,22 @@ public class Stepdefs {
         assertTrue(comments.size() > 0);
         commentController.deleteAllFromOneItem(i.getId());
     }
+
+    @When("^I filter by unread$")
+    public void iFilterByUnRead() throws Throwable {
+        List<Item> readItems = itemDao.getUnread();
+        assertFalse(readItems.isEmpty());
+    }
+
+    @Then("^I get items that are unread$")
+    public void iGetItemsThatAreUnRead() throws Throwable {
+        List<Item> items = itemDao.getRead();
+        if (!items.isEmpty()) {
+            assertFalse(items.get(0).getIs_read());
+
+        }
+    }
+
 }
 
 

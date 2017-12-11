@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="101.66895877754075" y="1013.0">Item.ItemHandler</node>
+    <node x="379.29999999999995" y="0.0">Item.Item</node>
+    <node x="453.25" y="1454.0">main.Application</node>
+    <node x="842.7000355366026" y="1635.0">main.Main</node>
+    <node x="32.5" y="583.0">Item.ItemController</node>
+    <node x="663.925" y="77.5">Interface.Dao</node>
+    <node x="498.42499999999995" y="330.0">Dao.ItemDao</node>
+    <node x="904.7166666666667" y="77.0">Comment.Comment</node>
+    <node x="936.425" y="352.0">Dao.CommentDao</node>
+    <node x="569.4011016346836" y="627.0">Comment.CommentController</node>
+    <node x="1092.7166666666667" y="99.5">Data.Database</node>
+    <node x="331.9442253020611" y="846.0">Comment.CommentHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Dao.ItemDao" target="Item.Item">
+      <point x="-83.60000000000002" y="-91.5" />
+      <point x="623.8249999999999" y="310.0" />
+      <point x="568.3" y="310.0" />
+      <point x="84.0" y="125.0" />
+    </edge>
+    <edge source="Comment.CommentController" target="Dao.CommentDao">
+      <point x="-64.5" y="-47.5" />
+      <point x="633.9011016346836" y="553.0" />
+      <point x="968.425" y="553.0" />
+      <point x="-96.0" y="69.5" />
+    </edge>
+    <edge source="main.Main" target="Dao.ItemDao">
+      <point x="36.80000000000001" y="-25.5" />
+      <point x="971.5000355366026" y="1615.0" />
+      <point x="974.8" y="1615.0" />
+      <point x="974.8" y="543.0" />
+      <point x="864.175" y="543.0" />
+      <point x="156.75" y="91.5" />
+    </edge>
+    <edge source="main.Application" target="Comment.CommentHandler">
+      <point x="16.0" y="-25.5" />
+      <point x="533.25" y="1434.0" />
+      <point x="545.0261016346836" y="1434.0" />
+      <point x="545.0261016346836" y="993.0" />
+      <point x="491.9442253020611" y="993.0" />
+      <point x="-32.0" y="58.5" />
+    </edge>
+    <edge source="main.Main" target="Comment.CommentController">
+      <point x="12.266666666666652" y="-25.5" />
+      <point x="946.9667022032693" y="1535.0" />
+      <point x="789.1511016346836" y="1535.0" />
+      <point x="789.1511016346836" y="826.0" />
+      <point x="805.9011016346836" y="826.0" />
+      <point x="107.5" y="47.5" />
+    </edge>
+    <edge source="Item.ItemController" target="Dao.ItemDao">
+      <point x="0.0" y="-91.5" />
+      <point x="230.5" y="533.0" />
+      <point x="550.675" y="533.0" />
+      <point x="-156.75" y="91.5" />
+    </edge>
+    <edge source="Dao.CommentDao" target="Interface.Dao">
+      <point x="-96.0" y="-69.5" />
+      <point x="968.425" y="270.0" />
+      <point x="794.425" y="270.0" />
+      <point x="43.5" y="47.5" />
+    </edge>
+    <edge source="Dao.CommentDao" target="Comment.Comment">
+      <point x="-32.0" y="-69.5" />
+      <point x="1032.425" y="270.0" />
+      <point x="988.7166666666667" y="270.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="main.Main" target="Data.Database">
+      <point x="85.8666666666667" y="-25.5" />
+      <point x="1020.5667022032693" y="1615.0" />
+      <point x="1253.494225302061" y="1615.0" />
+      <point x="1253.494225302061" y="310.0" />
+      <point x="1267.8" y="310.0" />
+      <point x="79.58333333333326" y="25.5" />
+    </edge>
+    <edge source="Dao.ItemDao" target="Interface.Dao">
+      <point x="0.0" y="-91.5" />
+      <point x="-43.5" y="47.5" />
+    </edge>
+    <edge source="Item.ItemController" target="Item.Item">
+      <point x="-132.0" y="-91.5" />
+      <point x="98.5" y="563.0" />
+      <point x="158.9442253020611" y="563.0" />
+      <point x="158.9442253020611" y="310.0" />
+      <point x="442.29999999999995" y="310.0" />
+      <point x="-42.0" y="125.0" />
+    </edge>
+    <edge source="Comment.CommentHandler" target="Item.Item">
+      <point x="-2.8421709430404007E-14" y="-58.5" />
+      <point x="523.9442253020611" y="786.0" />
+      <point x="484.29999999999995" y="786.0" />
+      <point x="0.0" y="125.0" />
+    </edge>
+    <edge source="Item.ItemHandler" target="Comment.CommentController">
+      <point x="49.428571428571445" y="-190.5" />
+      <point x="324.0975302061122" y="993.0" />
+      <point x="318.4442253020611" y="993.0" />
+      <point x="318.4442253020611" y="806.0" />
+      <point x="633.9011016346836" y="806.0" />
+      <point x="-64.5" y="47.5" />
+    </edge>
+    <edge source="main.Main" target="Item.ItemController">
+      <point x="-73.60000000000002" y="-25.5" />
+      <point x="861.1000355366026" y="1605.0" />
+      <point x="11.0" y="1605.0" />
+      <point x="11.0" y="826.0" />
+      <point x="131.5" y="826.0" />
+      <point x="-99.0" y="91.5" />
+    </edge>
+    <edge source="main.Main" target="Dao.CommentDao">
+      <point x="49.066666666666634" y="-25.5" />
+      <point x="983.7667022032692" y="1585.0" />
+      <point x="1126.3250355366026" y="1585.0" />
+      <point x="1126.3250355366026" y="563.0" />
+      <point x="1096.425" y="563.0" />
+      <point x="32.0" y="69.5" />
+    </edge>
+    <edge source="Dao.CommentDao" target="Data.Database">
+      <point x="32.0" y="-69.5" />
+      <point x="1096.425" y="300.0" />
+      <point x="1172.3000000000002" y="300.0" />
+      <point x="-15.916666666666629" y="25.5" />
+    </edge>
+    <edge source="Dao.ItemDao" target="Data.Database">
+      <point x="167.20000000000005" y="-91.5" />
+      <point x="874.625" y="290.0" />
+      <point x="1140.4666666666667" y="290.0" />
+      <point x="-47.75" y="25.5" />
+    </edge>
+    <edge source="main.Main" target="Comment.CommentHandler">
+      <point x="-12.266666666666652" y="-25.5" />
+      <point x="922.433368869936" y="1555.0" />
+      <point x="687.3" y="1555.0" />
+      <point x="687.3" y="993.0" />
+      <point x="683.9442253020611" y="993.0" />
+      <point x="160.0" y="58.5" />
+    </edge>
+    <edge source="Comment.CommentHandler" target="Comment.CommentController">
+      <point x="76.80000000000001" y="-58.5" />
+      <point x="600.7442253020611" y="816.0" />
+      <point x="676.9011016346836" y="816.0" />
+      <point x="-21.5" y="47.5" />
+    </edge>
+    <edge source="Item.ItemHandler" target="Comment.CommentHandler">
+      <point x="98.85714285714286" y="-190.5" />
+      <point x="373.52610163468364" y="993.0" />
+      <point x="363.9442253020611" y="993.0" />
+      <point x="-160.0" y="58.5" />
+    </edge>
+    <edge source="main.Main" target="Item.ItemHandler">
+      <point x="-61.33333333333337" y="-25.5" />
+      <point x="873.3667022032693" y="1595.0" />
+      <point x="278.3333333333333" y="1595.0" />
+      <point x="278.3333333333333" y="1434.0" />
+      <point x="159.33562544420738" y="1434.0" />
+      <point x="-115.33333333333337" y="190.5" />
+    </edge>
+    <edge source="main.Main" target="main.Application">
+      <point x="-49.06666666666666" y="-25.5" />
+      <point x="885.6333688699359" y="1585.0" />
+      <point x="485.25" y="1585.0" />
+      <point x="-32.0" y="25.5" />
+    </edge>
+    <edge source="Comment.CommentHandler" target="Item.ItemController">
+      <point x="-153.60000000000008" y="-58.5" />
+      <point x="370.34422530206103" y="786.0" />
+      <point x="329.5" y="786.0" />
+      <point x="99.0" y="91.5" />
+    </edge>
+    <edge source="Item.ItemHandler" target="Item.Item">
+      <point x="-148.28571428571433" y="-190.5" />
+      <point x="126.38324449182642" y="993.0" />
+      <point x="22.0" y="993.0" />
+      <point x="22.0" y="300.0" />
+      <point x="400.29999999999995" y="300.0" />
+      <point x="-84.0" y="125.0" />
+    </edge>
+    <edge source="main.Application" target="Item.ItemHandler">
+      <point x="-16.0" y="-25.5" />
+      <point x="501.25" y="1414.0" />
+      <point x="390.00229211087407" y="1414.0" />
+      <point x="115.33333333333331" y="190.5" />
+    </edge>
+    <edge source="Item.ItemHandler" target="Item.ItemController">
+      <point x="-49.42857142857139" y="-190.5" />
+      <point x="225.24038734896936" y="993.0" />
+      <point x="263.5" y="993.0" />
+      <point x="33.0" y="91.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="276.0" y="240.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
