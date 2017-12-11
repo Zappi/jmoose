@@ -94,17 +94,13 @@ public class ItemHandler {
         System.out.println(wantedItem + "\n");
 
 
-        printCommentsForSingleItem(wantedItem);
+        commentHandler.printComments(wantedItem);
         markReadStatus(wantedItem, scanner);
         commentHandler.addCommentForBrowsedItem(scanner, wantedItem);
         
         if (wantedItem.getUrl() != null) {
             openUrl(wantedItem, scanner);
         }
-    }
-
-    private void printCommentsForSingleItem(Item wantedItem) throws SQLException, ClassNotFoundException {
-        commentHandler.printComments(wantedItem);
     }
 
     private void changeReadStatus(String command, String title) throws SQLException, ClassNotFoundException {

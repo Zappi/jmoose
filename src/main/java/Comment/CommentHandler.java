@@ -4,6 +4,8 @@ import Item.Item;
 import Item.ItemController;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -50,7 +52,7 @@ public class CommentHandler {
         }
 
         System.out.println("Type in the comment: (use enter for a line break and empty line to quit)");
-        String comment = null;
+        String comment = "";
 
         while (true) {
             String text = scanner.nextLine();
@@ -60,7 +62,15 @@ public class CommentHandler {
                 comment = comment + "\n" + text;
             }
         }
-        if (!comment.equals(null)){
+        if (!comment.equals("")){
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+
+            String timestamp = dtf.format(now);
+            comment = timestamp + ":" + comment + "\n";
+
+
             commentController.save(comment, itemId);
             System.out.println("Comment saved succesfully!");
         } else {
