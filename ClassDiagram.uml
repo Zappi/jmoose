@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="53.397210376687894" y="426.0">Item.ItemHandler</node>
+    <node x="154.64999999999995" y="0.0">Item.Item</node>
+    <node x="138.12916666666658" y="505.0">main.Application</node>
+    <node x="388.4214196872779" y="664.0">main.Main</node>
+    <node x="26.566666666666606" y="218.0">Item.ItemController</node>
+    <node x="-330.0" y="33.0">main.UI</node>
+    <node x="338.6833333333333" y="0.0">Interface.Dao</node>
+    <node x="306.9333333333333" y="119.0">Dao.ItemDao</node>
+    <node x="429.6833333333333" y="0.0">Comment.Comment</node>
+    <node x="469.0166666666666" y="119.0">Dao.CommentDao</node>
+    <node x="241.7067341862117" y="218.0">Comment.CommentController</node>
+    <node x="556.6833333333333" y="0.0">Data.Database</node>
+    <node x="154.2067341862117" y="347.0">Comment.CommentHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Dao.CommentDao" target="Interface.Dao">
+      <point x="-48.75" y="-14.5" />
+      <point x="485.2666666666666" y="59.0" />
+      <point x="391.9333333333333" y="59.0" />
+      <point x="17.75" y="14.5" />
+    </edge>
+    <edge source="Dao.ItemDao" target="Interface.Dao">
+      <point x="0.0" y="-14.5" />
+      <point x="-17.75" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
